@@ -1,0 +1,1259 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8" /><meta name="robots" content="noindex,nofollow,noarchive" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-title" content="마스터검색🍀" /><meta name="apple-mobile-web-app-status-bar-style" content="default" /><meta name="theme-color" content="#FAF9F7" /><link rel="manifest" href="./manifest.webmanifest" /><title>마스터검색🍀</title><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"><style>
+:root{
+--bg:#FAF9F7;--card:#FFFFFF;--text:#2B2927;--muted:#77706A;--line:#E3DED8;
+--accent:#B78A96;--accent-dark:#98717C;--rose:#F1E6E9;--brown:#6A625C;--brown-dark:#4E4843;
+--shadow:0 1px 4px rgba(45,42,38,.035);--radius:4px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;letter-spacing:-.01em}
+body.modal-open{overflow:hidden}
+a{color:inherit;text-decoration:none}
+.top-link-row{width:min(720px,calc(100% - 40px));max-width:720px;margin:12px auto 0;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.back-to-main{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:0 14px;background:var(--brown);color:#fff;border:1px solid var(--brown);border-radius:9px;font-weight:800;font-size:13px;text-decoration:none;white-space:nowrap;box-shadow:0 1px 5px rgba(80,55,45,.045)}
+.back-to-main:hover{background:var(--brown-dark);border-color:var(--brown-dark)}
+.top-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
+.blank-top-btn{display:inline-flex;align-items:center;justify-content:center;width:86px;min-height:36px;border:1px solid #DED6D2;border-radius:9px;background:#fff;color:transparent;pointer-events:none;cursor:default;box-shadow:0 1px 5px rgba(80,55,45,.035)}
+.top-menu-btn{display:inline-flex;align-items:center;justify-content:center;width:86px;min-height:36px;border:1px solid #DED6D2;border-radius:9px;background:#fff;color:var(--brown);cursor:pointer;font-weight:900;font-size:13px;box-shadow:0 1px 5px rgba(80,55,45,.035)}
+.top-menu-btn:hover{background:#F7F5F2;border-color:#CDC3BF}
+.blank-top-btn.small{width:48px;border-radius:999px}.heart-top-btn{display:inline-flex;align-items:center;justify-content:center;width:86px;min-height:36px;border:1px solid #DED6D2;border-radius:9px;background:#fff;color:var(--brown);cursor:pointer;font-weight:900;font-size:16px;box-shadow:0 1px 5px rgba(80,55,45,.035)}.heart-top-btn:hover{background:#F7F5F2;border-color:#CDC3BF}.heart-top-btn.small{width:48px;border-radius:999px;padding:0}
+.page{width:min(720px,calc(100% - 40px));max-width:720px;margin:0 auto;padding:14px 0 56px}
+header{margin-bottom:12px}.title{margin:0 0 6px;font-size:clamp(24px,5vw,34px);letter-spacing:-.04em}.desc{margin:0;color:var(--muted);font-size:14px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px;margin-bottom:10px}
+.search-row{display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:10px}
+.quick-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+.detail-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.detail-toggle-btn{display:none}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:850}
+input,select,button{width:100%;min-height:40px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--text);font:inherit;padding:0 12px}
+input:focus,select:focus,button:focus{outline:none;border-color:#B78A96;box-shadow:0 0 0 3px rgba(183,132,143,.16)}
+button{cursor:pointer;font-weight:900;background:var(--accent);color:#fff;border-color:var(--accent);white-space:nowrap}
+button.secondary{background:#fff;color:var(--brown);border-color:#D8D1CC}
+button.ghost{background:#F1E6E9;color:#6d5058;border-color:#DED6D2}
+.summary{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 8px;color:var(--muted);font-size:14px}.summary strong{color:var(--text);font-size:18px}
+.active-summary{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;text-align:right}
+.list{display:grid;gap:10px}.card{background:var(--card);border:1px solid #E3DED8;border-radius:12px;box-shadow:var(--shadow);padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto 96px;gap:16px;align-items:center}.card-info{min-width:0;padding-right:0}
+.book-title{display:block;margin:0 0 7px;color:#242220;font-size:17px;font-weight:950;line-height:1.35;letter-spacing:-.015em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.book-title:hover{color:var(--accent-dark);text-decoration:underline;text-underline-offset:3px}.book-title.no-link:hover{text-decoration:none;color:#2B2927}
+.book-meta{margin:0;color:#5D5752;font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.card-middle{position:static;transform:none;width:max-content;max-width:260px;text-align:center;pointer-events:auto;justify-self:center}.book-history-inline{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:nowrap}.history-pill{display:inline-flex;align-items:center;justify-content:center;min-height:30px;padding:0 12px;border-radius:999px;background:#F1E6E9;border:1px solid #DED6D2;color:#9B6F7B;font-size:13px;font-weight:900;line-height:1;white-space:nowrap;letter-spacing:-.02em}.history-pill.recent{background:#F7F5F2;border-color:#E3DED8;color:#6A625C}
+.card-actions{display:grid;grid-template-columns:1fr;gap:9px;width:96px;min-width:96px;justify-self:start}
+.history-btn,.move-btn{width:96px;min-height:40px;border-radius:12px;font-size:14px;font-weight:950;display:inline-flex;align-items:center;justify-content:center;padding:0 10px;text-align:center}
+.history-btn{background:var(--brown);border-color:var(--brown);color:#fff}.history-btn:hover{background:var(--brown-dark);border-color:var(--brown-dark)}.history-btn.disabled{opacity:.45;cursor:not-allowed;filter:none;pointer-events:none}
+.move-btn{background:#fff;color:var(--brown);border:1px solid #D8D1CC}.move-btn:hover{background:#F7F5F2}
+.empty,.error{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 18px;text-align:center;color:var(--muted)}.empty.prompt{min-height:280px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#77706A;background:transparent;border:1px dashed var(--line);box-shadow:none}.error{color:#9b3b35}.hidden{display:none!important}.load-more-wrap{margin-top:18px;display:flex;justify-content:center}.load-more-wrap button{width:min(280px,100%);min-height:46px}
+.float-nav{position:fixed;right:16px;bottom:18px;z-index:25;display:grid;gap:8px}.float-nav button{width:44px;height:44px;min-height:44px;border-radius:999px;padding:0;box-shadow:0 8px 20px rgba(70,55,48,.12);background:#fff;color:var(--brown);border-color:var(--line);font-size:18px}
+.history-modal-backdrop,.date-index-backdrop,.taste-modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:80;padding:18px;align-items:center;justify-content:center}.history-modal-backdrop.open,.date-index-backdrop.open,.taste-modal-backdrop.open{display:flex}.history-modal,.date-index-modal,.taste-modal{width:min(460px,100%);max-height:82vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 24px rgba(70,55,48,.14);padding:20px}.date-index-modal{width:min(560px,100%)}.history-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.history-head h2{margin:0;font-size:17px;font-weight:950;letter-spacing:-.03em;line-height:1.45;color:#2B2927}.history-close{width:34px!important;min-height:34px!important;padding:0!important;border-radius:999px!important;background:#F3EEEE!important;color:var(--brown)!important;border:1px solid #DED6D2!important;flex:0 0 auto}.history-meta{margin:0 0 15px;color:#4E4843;font-size:13px;font-weight:800;line-height:1.45}.history-list{display:grid;gap:9px}.history-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #DED6D2;background:#FAF9F7;border-radius:13px;padding:11px 12px}.history-date{font-weight:950;color:#4E4843;font-size:15px}.history-rate{font-weight:950;color:#fff;background:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:5px 12px;min-width:58px;text-align:center;box-shadow:0 2px 8px rgba(169,120,130,.18)}.history-empty{padding:18px 12px;text-align:center;color:var(--muted);border:1px dashed #DED6D2;border-radius:13px;background:#FAF9F7}.date-index-desc{margin:0 0 12px;color:var(--muted);font-size:13px;font-weight:700}.date-index-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(124px,1fr));gap:8px}.date-chip{min-height:40px;border-radius:999px;background:#FAF9F7;color:var(--brown);border:1px solid #DED6D2;font-size:13px;font-weight:950}.date-chip:hover{background:#F1E6E9}.date-chip.active{background:var(--accent);border-color:var(--accent);color:#fff}.clear-date-btn{width:auto!important;min-height:34px!important;padding:0 12px!important;background:#fff!important;color:var(--brown)!important;border-color:#D8D1CC!important;border-radius:999px!important;font-size:12px!important}
+.taste-card-list{display:grid;gap:10px;margin-top:12px}
+.taste-card{background:#FAF9F7;border:1px solid var(--line);border-radius:14px;padding:13px 14px;box-shadow:0 2px 10px rgba(80,55,45,.035)}
+.taste-card-title{margin:0 0 5px;color:#2B2927;font-size:15px;font-weight:950;letter-spacing:-.03em;line-height:1.35}
+.taste-card-desc{margin:0;color:var(--muted);font-size:13px;font-weight:700;line-height:1.5}
+@media(max-width:980px){.top-link-row,.page{width:min(100% - 24px,720px)}.top-link-row{margin-top:12px}.blank-top-btn,.top-menu-btn,.heart-top-btn{width:62px;min-height:34px}.blank-top-btn.small,.heart-top-btn.small{width:38px}.search-row,.detail-row{grid-template-columns:1fr}.quick-row{grid-template-columns:minmax(120px,1fr) auto auto;gap:8px}.quick-row>div:nth-child(2){width:72px}.detail-toggle-btn{display:block;width:42px;min-height:44px;border-radius:14px;padding:0;font-size:18px;line-height:1}.detail-row.mobile-collapsed{display:none}.summary{align-items:flex-start;flex-direction:column}.active-summary{text-align:left;white-space:normal}.card{grid-template-columns:1fr;gap:12px;padding:16px}.card-info{padding-right:0}.book-title{white-space:normal;font-size:16px}.book-meta{white-space:normal}.card-middle{width:auto;max-width:none;text-align:left;justify-self:start}.book-history-inline{justify-content:flex-start;flex-wrap:wrap}.card-actions{grid-template-columns:1fr 1fr;width:100%;min-width:0}.history-btn,.move-btn{width:100%}.float-nav button{width:40px;height:40px;min-height:40px}}
+@media (max-width:980px){
+.detail-toggle-btn{
+display:flex !important;
+align-items:center !important;
+justify-content:center !important;
+}
+.detail-toggle-icon{
+width:14px;
+height:14px;
+border-right:4px solid currentColor;
+border-bottom:4px solid currentColor;
+transform:rotate(45deg) translateY(-2px);
+border-radius:2px;
+display:inline-block;
+}
+.detail-toggle-btn:not(.is-collapsed) .detail-toggle-icon{
+transform:rotate(225deg) translateY(-2px);
+}
+}
+.card{position:relative}
+.book-cover{display:none}.favorite-toggle{display:none}.view-mode-row{display:none}.install-banner{display:none}.mobile-tabbar{display:none}
+@media(max-width:980px){
+.top-link-row{display:none}.page{padding-bottom:112px}header{margin:14px 0 10px}.title{font-size:25px;letter-spacing:-.04em}.desc{display:none}
+.install-banner{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);padding:10px 11px;margin:0 0 10px;color:#6A625C;font-size:12px;font-weight:800;line-height:1.35}.install-banner.hidden{display:none!important}.install-banner span{min-width:0;flex:1}.install-banner button{width:auto;min-height:30px;border-radius:999px;padding:0 10px;font-size:12px;background:#fff;color:var(--brown);border-color:#D8D1CC}.install-banner button#installDismissBtn{width:30px;padding:0;font-size:16px}
+.view-mode-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}.view-mode-label{font-size:12px;color:var(--muted);font-weight:850}.view-mode-buttons{display:inline-flex;gap:6px;background:#FAF9F7;border:1px solid var(--line);border-radius:999px;padding:3px}.view-mode-btn{width:38px;min-height:32px;border-radius:999px;padding:0;background:transparent;border:0;color:var(--brown);font-size:17px;line-height:1}.view-mode-btn.active{background:var(--accent);color:#fff}
+.mobile-tabbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:rgba(255,253,249,.96);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 22px rgba(70,55,48,.13);padding:7px;backdrop-filter:blur(10px)}.mobile-tab{min-height:46px;border-radius:14px;background:transparent;border:0;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:0;font-weight:900}.mobile-tab span{font-size:18px;line-height:1}.mobile-tab em{font-style:normal;font-size:11px;line-height:1}.mobile-tab.active{background:#F1E6E9;color:#9B6F7B}
+.float-nav{bottom:88px}.float-nav button{box-shadow:0 4px 12px rgba(70,55,48,.11)}.favorite-toggle{display:flex;position:absolute;top:10px;right:10px;z-index:2;align-items:center;justify-content:center;width:34px;min-height:34px;height:34px;border-radius:999px;background:#fff;color:#B78A96;border:1px solid #DED6D2;box-shadow:0 2px 8px rgba(80,55,45,.06);font-size:18px;padding:0}.favorite-toggle.is-on{background:#F1E6E9;color:#9B6F7B;border-color:#DED6D2}.card{padding-right:48px}
+body.view-card .card.with-cover{grid-template-columns:72px minmax(0,1fr);align-items:start;gap:12px;padding:13px 48px 13px 13px}body.view-card .card.with-cover .book-cover{display:block;width:72px;height:104px;border-radius:10px;overflow:hidden;border:1px solid #E3DED8;background:#F7F5F2;grid-row:1 / span 2;align-self:start}.book-cover img{width:100%;height:100%;object-fit:cover;display:block}.book-cover.no-cover{display:flex!important;align-items:center;justify-content:center;color:#9A918B;font-size:11px;font-weight:900;text-align:center;line-height:1.25;letter-spacing:-.02em;padding:6px}.book-cover.no-cover span{display:block}body.view-card .card.with-cover .card-info{grid-column:2;min-width:0;padding-top:2px}.book-title{padding-right:0}body.view-card .card.with-cover .card-middle{grid-column:2;justify-self:start;text-align:left;margin-top:2px}.book-history-inline{gap:6px}.history-pill{min-height:28px;padding:0 10px;font-size:12px}body.view-card .card.with-cover .card-actions{grid-column:2;grid-template-columns:1fr 1fr;margin-top:2px}.history-btn,.move-btn{min-height:38px}
+}
+/* neutral flat polish: CSS only, no layout/function changes */
+body{
+background:#FAF9F7;
+}
+.panel,
+.card,
+.empty,
+.error,
+.install-banner,
+.history-modal,
+.date-index-modal,
+.taste-modal,
+.taste-card{
+border-radius:4px !important;
+border-color:#E3DED8 !important;
+box-shadow:0 1px 4px rgba(45,42,38,.035) !important;
+}
+input,
+select,
+button,
+.back-to-main,
+.top-menu-btn,
+.heart-top-btn,
+.blank-top-btn,
+.history-btn,
+.move-btn,
+.load-more-wrap button{
+border-radius:4px !important;
+}
+.history-pill,
+.history-pill.recent,
+.history-rate,
+.date-chip,
+.clear-date-btn{
+border-radius:4px !important;
+}
+.float-nav button,
+.history-close,
+.favorite-toggle,
+.blank-top-btn.small,
+.heart-top-btn.small{
+border-radius:4px !important;
+}
+.search-row input,
+.detail-row input,
+select{
+background:#FFFFFF;
+border-color:#E3DED8;
+box-shadow:none;
+}
+input:focus,
+select:focus,
+button:focus{
+border-color:#B78A96;
+box-shadow:0 0 0 2px rgba(183,138,150,.13);
+}
+button{
+box-shadow:none;
+}
+.card{
+background:#FFFFFF;
+}
+.book-title{
+color:#242220;
+}
+.book-meta{
+color:#5D5752;
+}
+.history-pill{
+background:#F1E6E9;
+border-color:#DED6D2;
+color:#9B6F7B;
+}
+.history-pill.recent{
+background:#F7F5F2;
+border-color:#E3DED8;
+color:#6A625C;
+}
+.history-row,
+.history-empty,
+.date-chip{
+border-radius:4px !important;
+background:#FAF9F7;
+}
+button.secondary,
+.move-btn,
+.top-menu-btn,
+.heart-top-btn,
+.float-nav button{
+background:#FFFFFF;
+color:#6A625C;
+border-color:#D8D1CC;
+}
+.history-btn,
+.back-to-main{
+background:#6A625C;
+border-color:#6A625C;
+color:#FFFFFF;
+}
+.history-btn:hover,
+.back-to-main:hover{
+background:#4E4843;
+border-color:#4E4843;
+}
+@media(max-width:980px){
+.mobile-tabbar{
+background:rgba(250,249,247,.96) !important;
+border-radius:4px !important;
+box-shadow:0 1px 4px rgba(45,42,38,.06) !important;
+}
+.mobile-tab{
+border-radius:4px !important;
+}
+.mobile-tab.active{
+background:#F1E6E9;
+color:#9B6F7B;
+}
+body.view-card .card.with-cover .book-cover{
+border-radius:4px !important;
+border-color:#E3DED8;
+background:#F7F5F2;
+}
+.view-mode-buttons{
+border-radius:4px !important;
+background:#F7F5F2;
+}
+.view-mode-btn{
+border-radius:4px !important;
+}
+.favorite-toggle{
+border-radius:4px !important;
+box-shadow:none !important;
+color:#98717C;
+}
+.favorite-toggle.is-on{
+background:#F1E6E9;
+color:#9B6F7B;
+border-color:#DED6D2;
+}
+}
+/* compact view selector only: rollback color tweak, reduce height/size */
+@media(max-width:980px){
+.view-mode-row{
+margin-top:6px !important;
+padding-top:6px !important;
+min-height:0 !important;
+}
+.view-mode-label{
+font-size:11px !important;
+line-height:1 !important;
+}
+.view-mode-buttons{
+padding:2px !important;
+gap:4px !important;
+}
+.view-mode-btn{
+width:30px !important;
+min-height:26px !important;
+height:26px !important;
+font-size:14px !important;
+line-height:1 !important;
+padding:0 !important;
+}
+}
+/* view selector symbol size tweak only */
+@media(max-width:980px){
+.view-mode-btn{
+font-size:16px !important;
+}
+}
+/* balance view selector icons only */
+@media(max-width:980px){
+.view-mode-btn{
+display:inline-flex !important;
+align-items:center !important;
+justify-content:center !important;
+font-family:Arial, sans-serif !important;
+font-size:17px !important;
+font-weight:700 !important;
+letter-spacing:0 !important;
+}
+}
+/* make list view icon wider only */
+@media(max-width:980px){
+.list-view-icon{
+width:16px;
+height:11px;
+display:inline-block;
+background:
+linear-gradient(currentColor,currentColor) left top / 100% 1.5px no-repeat,
+linear-gradient(currentColor,currentColor) left center / 100% 1.5px no-repeat,
+linear-gradient(currentColor,currentColor) left bottom / 100% 1.5px no-repeat;
+}
+}
+/* card view icon: 2x2 squares balanced with list icon */
+@media(max-width:980px){
+.card-view-icon{
+width:16px;
+height:14px;
+display:grid;
+grid-template-columns:repeat(2, 6px);
+grid-template-rows:repeat(2, 6px);
+gap:2px;
+align-items:center;
+justify-content:center;
+}
+.card-view-icon::before{
+content:"";
+width:6px;
+height:6px;
+background:currentColor;
+box-shadow:
+8px 0 0 currentColor,
+0 8px 0 currentColor,
+8px 8px 0 currentColor;
+}
+}
+/* mobile bottom tabbar: stick fully to bottom, device-safe */
+@media(max-width:980px){
+.page{
+padding-bottom:calc(92px + env(safe-area-inset-bottom, 0px)) !important;
+}
+.mobile-tabbar{
+left:0 !important;
+right:0 !important;
+bottom:0 !important;
+width:100% !important;
+border-left:0 !important;
+border-right:0 !important;
+border-bottom:0 !important;
+border-radius:4px 4px 0 0 !important;
+background:#FAF9F7 !important;
+padding:7px 10px calc(7px + env(safe-area-inset-bottom, 0px)) 10px !important;
+box-shadow:0 -1px 6px rgba(45,42,38,.08) !important;
+}
+.float-nav{
+bottom:calc(78px + env(safe-area-inset-bottom, 0px)) !important;
+}
+}
+/* mobile quick buttons balance: reset + accordion */
+@media(max-width:980px){
+.quick-row{
+grid-template-columns:minmax(0,1fr) 68px 48px !important;
+align-items:end !important;
+}
+.quick-row>div:nth-child(2){
+width:68px !important;
+}
+#resetBtn{
+width:68px !important;
+min-height:40px !important;
+height:40px !important;
+padding:0 !important;
+font-size:14px !important;
+line-height:1 !important;
+}
+#detailToggleBtn{
+width:48px !important;
+min-height:40px !important;
+height:40px !important;
+padding:0 !important;
+font-size:15px !important;
+line-height:1 !important;
+}
+.detail-toggle-icon{
+width:12px !important;
+height:12px !important;
+border-right-width:3px !important;
+border-bottom-width:3px !important;
+}
+}
+/* final mobile button balance */
+@media(max-width:980px){
+.view-mode-label{
+display:none !important;
+}
+.quick-row{
+grid-template-columns:minmax(0,1fr) 72px 48px !important;
+gap:8px !important;
+align-items:end !important;
+}
+.quick-row > div:nth-child(2){
+width:72px !important;
+}
+#sortBy,
+#resetBtn,
+#detailToggleBtn{
+min-height:40px !important;
+height:40px !important;
+}
+#resetBtn{
+width:72px !important;
+font-size:14px !important;
+padding:0 !important;
+}
+#detailToggleBtn{
+width:48px !important;
+padding:0 !important;
+}
+}
+/* align card/list view selector to the right */
+@media(max-width:980px){
+.view-mode-row{
+justify-content:flex-end !important;
+}
+.view-mode-buttons{
+margin-left:auto !important;
+}
+}
+/* ridi link + hide search panel on favorite tab */
+@media(max-width:980px){
+.view-mode-row{
+justify-content:space-between !important;
+}
+.ridi-mobile-link{
+display:inline-flex !important;
+align-items:center !important;
+justify-content:center !important;
+min-height:30px !important;
+height:30px !important;
+padding:0 10px !important;
+border:1px solid #D8D1CC !important;
+background:#FFFFFF !important;
+color:#6A625C !important;
+border-radius:4px !important;
+font-size:12px !important;
+font-weight:900 !important;
+line-height:1 !important;
+white-space:nowrap !important;
+}
+.view-mode-buttons{
+margin-left:auto !important;
+}
+body.favorite-mode .panel{
+display:none !important;
+}
+}
+/* standalone webapp only: lift bottom tabbar slightly */
+@media(max-width:980px) and (display-mode: standalone){
+.mobile-tabbar{
+bottom:calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+border-bottom:1px solid #E3DED8 !important;
+border-radius:4px !important;
+}
+}
+@media(max-width:980px) and (-webkit-device-pixel-ratio: 3){
+@supports (-webkit-touch-callout:none){
+@media (display-mode: standalone){
+.mobile-tabbar{
+bottom:calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+}
+}
+}
+}
+/* standalone webapp only: slightly larger bottom tabbar */
+@media(max-width:980px) and (display-mode: standalone){
+.mobile-tabbar{
+padding:9px 12px calc(9px + env(safe-area-inset-bottom, 0px)) 12px !important;
+}
+.mobile-tab{
+min-height:52px !important;
+}
+.mobile-tab span{
+font-size:21px !important;
+}
+.mobile-tab em{
+font-size:12px !important;
+}
+}
+/* inline date list tab */
+@media(max-width:980px){
+body.date-list-mode .panel{
+display:none !important;
+}
+body.date-list-mode #list,
+body.date-list-mode #empty,
+body.date-list-mode #loadMoreWrap{
+display:none !important;
+}
+body.date-list-mode #dateListView{
+display:block !important;
+}
+body:not(.date-list-mode) #dateListView{
+display:none !important;
+}
+.date-list-view{
+background:#FFFFFF;
+border:1px solid #E3DED8;
+border-radius:4px;
+box-shadow:0 1px 4px rgba(45,42,38,.035);
+padding:12px;
+margin:10px 0 12px;
+}
+.date-list-clear-row{
+display:flex;
+justify-content:flex-end;
+margin:-2px 0 8px;
+}
+.date-list-clear-btn{
+width:auto;
+min-height:34px;
+height:34px;
+padding:0 12px;
+background:#FFFFFF;
+color:#6A625C;
+border:1px solid #D8D1CC;
+border-radius:4px;
+font-size:12px;
+font-weight:900;
+}
+.date-list-clear-btn:disabled{
+opacity:.45;
+cursor:not-allowed;
+}
+.date-list-head{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+margin-bottom:10px;
+}
+.date-list-head strong{
+font-size:15px;
+font-weight:950;
+color:#2B2927;
+}
+#dateYearFilter{
+width:112px;
+min-height:34px;
+height:34px;
+padding:0 8px;
+font-size:13px;
+border-radius:4px;
+}
+.date-list-inline{
+display:grid;
+gap:8px;
+}
+.date-list-item{
+width:100%;
+min-height:42px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+padding:0 12px;
+background:#FAF9F7;
+color:#6A625C;
+border:1px solid #E3DED8;
+border-radius:4px;
+font-size:14px;
+font-weight:900;
+}
+.date-list-item.active{
+background:#F1E6E9;
+color:#9B6F7B;
+border-color:#DED6D2;
+}
+.date-list-item em{
+font-style:normal;
+color:#77706A;
+font-size:12px;
+font-weight:850;
+}
+.date-list-empty{
+padding:24px 12px;
+text-align:center;
+color:#77706A;
+border:1px dashed #E3DED8;
+border-radius:4px;
+font-weight:850;
+}
+}
+/* mobile search input + button balance */
+@media(max-width:980px){
+.search-row{
+grid-template-columns:minmax(0,1fr) 64px !important;
+gap:8px !important;
+align-items:end !important;
+}
+.search-row > div:last-child{
+width:64px !important;
+}
+#q,
+#searchBtn{
+min-height:42px !important;
+height:42px !important;
+}
+#searchBtn{
+width:64px !important;
+padding:0 !important;
+font-size:14px !important;
+line-height:1 !important;
+}
+}
+/* date list count removed */
+@media(max-width:980px){
+.date-list-item{
+justify-content:flex-start !important;
+}
+}
+/* install banner: state-separated visibility */
+#installBanner{
+display:none !important;
+}
+@media(max-width:980px){
+#installBanner.is-visible{
+display:flex !important;
+}
+#installBanner.is-dismissed{
+display:none !important;
+}
+}
+@media(max-width:980px) and (display-mode: standalone){
+#installBanner,
+#installBanner.is-visible,
+#installBanner.is-dismissed{
+display:none !important;
+}
+}
+@media(max-width:980px){
+body.standalone #installBanner,
+body.standalone #installBanner.is-visible,
+body.standalone #installBanner.is-dismissed{
+display:none !important;
+}
+}
+/* top right ridi + heart buttons, gardening-like */
+.ridi-top-btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:86px;
+min-height:36px;
+border:1px solid #D8D1CC;
+border-radius:4px;
+background:#FFFFFF;
+color:#6A625C;
+font-size:13px;
+font-weight:900;
+box-shadow:none;
+white-space:nowrap;
+}
+.ridi-top-btn:hover{
+background:#F7F5F2;
+}
+@media(max-width:980px){
+.top-link-row{
+display:flex !important;
+width:min(100% - 24px,720px) !important;
+margin:12px auto 0 !important;
+justify-content:flex-end !important;
+}
+.back-to-main,
+.top-menu-btn{
+display:none !important;
+}
+.top-actions{
+display:flex !important;
+gap:8px !important;
+margin-left:auto !important;
+}
+.ridi-top-btn{
+width:64px !important;
+min-height:34px !important;
+height:34px !important;
+padding:0 !important;
+font-size:12px !important;
+}
+.heart-top-btn.small{
+display:inline-flex !important;
+width:38px !important;
+min-height:34px !important;
+height:34px !important;
+border-radius:4px !important;
+font-size:16px !important;
+}
+.view-mode-row{
+justify-content:flex-end !important;
+}
+}
+/* mobile: title and top buttons on the same line */
+@media(max-width:980px){
+.top-link-row{
+position:absolute !important;
+top:26px !important;
+right:12px !important;
+width:auto !important;
+max-width:none !important;
+margin:0 !important;
+z-index:30 !important;
+}
+header{
+position:relative !important;
+padding-right:116px !important;
+margin-top:14px !important;
+}
+.title{
+margin:0 !important;
+line-height:34px !important;
+white-space:nowrap !important;
+}
+.top-actions{
+align-items:center !important;
+}
+}
+/* PC card/list switch: default list stays unchanged, card mode shows manual covers */
+@media(min-width:981px){
+.view-mode-row{
+display:flex !important;
+align-items:center !important;
+justify-content:flex-end !important;
+gap:10px !important;
+margin-top:10px !important;
+padding-top:10px !important;
+border-top:1px dashed var(--line) !important;
+}
+.view-mode-buttons{
+display:inline-flex !important;
+gap:6px !important;
+background:#F7F5F2 !important;
+border:1px solid var(--line) !important;
+border-radius:4px !important;
+padding:3px !important;
+}
+.view-mode-btn{
+width:34px !important;
+min-height:28px !important;
+height:28px !important;
+border-radius:4px !important;
+padding:0 !important;
+background:transparent !important;
+border:0 !important;
+color:var(--brown) !important;
+display:inline-flex !important;
+align-items:center !important;
+justify-content:center !important;
+}
+.view-mode-btn.active{
+background:var(--accent) !important;
+color:#fff !important;
+}
+.card-view-icon{
+width:16px;
+height:14px;
+display:grid;
+grid-template-columns:repeat(2, 6px);
+grid-template-rows:repeat(2, 6px);
+gap:2px;
+align-items:center;
+justify-content:center;
+}
+.card-view-icon::before{
+content:"";
+width:6px;
+height:6px;
+background:currentColor;
+box-shadow:8px 0 0 currentColor,0 8px 0 currentColor,8px 8px 0 currentColor;
+}
+.list-view-icon{
+width:16px;
+height:11px;
+display:inline-block;
+background:
+linear-gradient(currentColor,currentColor) left top / 100% 1.5px no-repeat,
+linear-gradient(currentColor,currentColor) left center / 100% 1.5px no-repeat,
+linear-gradient(currentColor,currentColor) left bottom / 100% 1.5px no-repeat;
+}
+body.view-card .list{
+grid-template-columns:repeat(2, minmax(0, 1fr));
+align-items:stretch;
+}
+body.view-card .card.with-cover{
+grid-template-columns:86px minmax(0,1fr);
+grid-template-rows:auto 1fr auto;
+gap:10px 12px;
+align-items:start;
+padding:13px;
+}
+body.view-card .card.with-cover .book-cover{
+display:block;
+width:86px;
+height:126px;
+border-radius:4px;
+overflow:hidden;
+border:1px solid #E3DED8;
+background:#F7F5F2;
+grid-column:1;
+grid-row:1 / span 2;
+align-self:start;
+}
+body.view-card .card.with-cover .book-cover img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+body.view-card .card.with-cover .book-cover.no-cover{
+display:flex !important;
+align-items:center;
+justify-content:center;
+color:#9A918B;
+font-size:12px;
+font-weight:900;
+text-align:center;
+line-height:1.25;
+letter-spacing:-.02em;
+padding:7px;
+}
+body.view-card .card.with-cover .card-info{
+grid-column:2;
+grid-row:1;
+min-width:0;
+padding-top:2px;
+}
+body.view-card .card.with-cover .book-title{
+white-space:normal;
+font-size:16px;
+line-height:1.35;
+}
+body.view-card .card.with-cover .book-meta{
+white-space:normal;
+font-size:13px;
+}
+body.view-card .card.with-cover .card-middle{
+grid-column:2;
+grid-row:2;
+align-self:end;
+justify-self:start;
+text-align:left;
+width:auto;
+max-width:100%;
+margin-top:0;
+}
+body.view-card .card.with-cover .book-history-inline{
+justify-content:flex-start;
+flex-wrap:wrap;
+gap:6px;
+}
+body.view-card .card.with-cover .history-pill{
+min-height:28px;
+padding:0 10px;
+font-size:12px;
+}
+body.view-card .card.with-cover .card-actions{
+grid-column:1 / -1;
+grid-row:3;
+grid-template-columns:1fr 1fr;
+width:100%;
+min-width:0;
+margin-top:2px;
+}
+body.view-card .card.with-cover .history-btn,
+body.view-card .card.with-cover .move-btn{
+width:100%;
+min-height:38px;
+}
+}
+/* PC: move card/list toggle beside reset; mobile keeps it under quick filters */
+.detail-toggle-cell{display:none}
+@media(min-width:981px){
+.quick-row{grid-template-columns:minmax(0,1fr) auto auto !important;align-items:end !important}
+.quick-row .view-mode-row{display:block !important;margin:0 !important;padding:0 !important;border:0 !important}
+.quick-row .view-mode-row label{display:block !important;font-size:12px;color:transparent;margin-bottom:5px;font-weight:850}
+.quick-row .view-mode-buttons{min-height:40px;height:40px;display:inline-flex !important;align-items:center !important;gap:6px !important;background:#F7F5F2 !important;border:1px solid var(--line) !important;border-radius:4px !important;padding:4px !important}
+.quick-row .view-mode-btn{width:34px !important;min-height:30px !important;height:30px !important;border-radius:4px !important;padding:0 !important;background:transparent !important;border:0 !important;color:var(--brown) !important;display:inline-flex !important;align-items:center !important;justify-content:center !important}
+.quick-row .view-mode-btn.active{background:var(--accent) !important;color:#fff !important}
+}
+@media(max-width:980px){
+.detail-toggle-cell{display:block !important}
+.quick-row .view-mode-row{grid-column:1 / -1 !important}
+.quick-row .view-mode-row label{display:none !important}
+}
+/* date-list clear button: outside list box, on summary right */
+.summary-right{display:flex;align-items:center;justify-content:flex-end;gap:8px;min-width:0;margin-left:auto}
+.summary-right .active-summary{min-width:0}
+.date-list-clear-btn{display:none;width:auto;min-height:32px;height:32px;padding:0 10px;background:#FFFFFF;color:#6A625C;border:1px solid #D8D1CC;border-radius:4px;font-size:12px;font-weight:900;white-space:nowrap}
+body.date-list-mode .date-list-clear-btn{display:inline-flex;align-items:center;justify-content:center}
+.date-list-clear-btn:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:980px){
+body.date-list-mode .summary{flex-direction:row !important;align-items:center !important;justify-content:space-between !important;gap:8px !important}
+body.date-list-mode .summary .count{white-space:nowrap}
+body.date-list-mode .summary-right{flex:1 1 auto;min-width:0}
+body.date-list-mode .summary-right .active-summary{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+}
+/* favorite feature only: preserve existing skeleton */
+.favorite-list-bar,.favorite-filter-bar{display:none}
+body.favorite-mode .favorite-list-bar{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:4px;box-shadow:var(--shadow);padding:10px;margin:10px 0 8px;position:relative}
+body.favorite-mode .favorite-filter-bar{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:#fff;border:1px solid var(--line);border-radius:4px;box-shadow:var(--shadow);padding:10px;margin:0 0 10px}
+.fav-list-menu-btn{width:40px;min-height:36px;padding:0;background:#fff;color:var(--brown);border:1px solid #D8D1CC;border-radius:4px;font-size:16px}
+.fav-list-select{min-width:0;flex:1;height:36px;min-height:36px;border-radius:4px}
+.fav-list-count{display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:0 9px;border:1px solid #DED6D2;border-radius:4px;background:#F1E6E9;color:#9B6F7B;font-size:12px;font-weight:950;white-space:nowrap}
+.fav-list-menu{position:absolute;left:10px;right:10px;top:calc(100% + 6px);z-index:50;display:grid;grid-template-columns:38px 38px 1fr 38px;gap:6px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:4px;box-shadow:0 8px 18px rgba(70,55,48,.12);padding:8px}
+.fav-list-menu[hidden]{display:none!important}.fav-list-menu button{min-height:34px;padding:0;border-radius:4px}.fav-list-menu input{min-height:34px;height:34px;border-radius:4px}
+.favorite-action-btn{width:96px;min-height:40px;border-radius:4px;font-size:14px;font-weight:950;display:inline-flex;align-items:center;justify-content:center;padding:0 10px;text-align:center;background:#fff;color:var(--brown);border:1px solid #D8D1CC}
+.favorite-action-btn.is-on{background:#F1E6E9;color:#9B6F7B;border-color:#DED6D2}
+.favorite-move-popover{position:fixed;z-index:120;background:#fff;border:1px solid var(--line);border-radius:4px;box-shadow:0 8px 18px rgba(70,55,48,.15);padding:6px;display:grid;gap:4px;min-width:124px}.favorite-move-popover button{min-height:34px;background:#fff;color:var(--brown);border:1px solid #D8D1CC;border-radius:4px;font-size:13px;padding:0 10px;text-align:left}.favorite-move-popover button:hover{background:#F1E6E9;color:#9B6F7B}
+.favorite-toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%);z-index:100;background:#4E4843;color:#fff;border-radius:4px;padding:9px 12px;font-size:13px;font-weight:850;box-shadow:0 8px 20px rgba(70,55,48,.18);opacity:0;pointer-events:none;transition:opacity .18s ease}.favorite-toast.show{opacity:1}
+.heart-top-btn.is-on{background:#F1E6E9;color:#9B6F7B;border-color:#DED6D2}
+@media(max-width:980px){body.favorite-mode .favorite-list-bar{margin-top:0}.favorite-action-btn{width:100%!important}.favorite-filter-bar{grid-template-columns:1fr 1fr}.favorite-toast{bottom:calc(88px + env(safe-area-inset-bottom,0px))}.fav-list-menu{grid-template-columns:36px 36px 1fr 36px}}
+/* requested fixes: PC card action buttons centered + remove duplicate card heart on mobile/webapp */
+@media(min-width:981px){
+body.view-card .card.with-cover .card-actions{
+grid-column:1 / -1 !important;
+grid-row:3 !important;
+grid-template-columns:96px 96px !important;
+width:auto !important;
+min-width:0 !important;
+justify-self:center !important;
+justify-content:center !important;
+gap:12px !important;
+margin:2px auto 0 !important;
+}
+body.view-card .card.with-cover .history-btn,
+body.view-card .card.with-cover .move-btn,
+body.view-card .card.with-cover .favorite-action-btn{
+width:96px !important;
+}
+}
+@media(max-width:980px){
+.card .favorite-toggle{
+display:none !important;
+}
+.card{
+padding-right:16px !important;
+}
+body.view-card .card.with-cover{
+padding:13px !important;
+}
+}
+/* mobile only: remove duplicate green top heart, keep PC heart */
+@media(max-width:980px){
+#tasteTopBtn.heart-top-btn{
+display:none !important;
+}
+header{
+padding-right:76px !important;
+}
+}
+/* final mobile-only heart removal: width + touch/webapp fallback */
+@media(max-width:980px), (hover:none) and (pointer:coarse){
+#tasteTopBtn,
+#tasteTopBtn.heart-top-btn,
+.top-actions #tasteTopBtn{
+display:none !important;
+visibility:hidden !important;
+width:0 !important;
+min-width:0 !important;
+height:0 !important;
+min-height:0 !important;
+padding:0 !important;
+margin:0 !important;
+border:0 !important;
+overflow:hidden !important;
+pointer-events:none !important;
+}
+.card .favorite-toggle,
+body.view-card .card.with-cover .favorite-toggle{
+display:none !important;
+visibility:hidden !important;
+pointer-events:none !important;
+}
+}
+/* mobile only: center action buttons after removing duplicate hearts */
+@media(max-width:980px), (hover:none) and (pointer:coarse){
+.card .card-actions{
+width:100% !important;
+min-width:0 !important;
+justify-self:center !important;
+justify-content:center !important;
+grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+gap:9px !important;
+}
+body.view-card .card.with-cover .card-actions{
+grid-column:1 / -1 !important;
+grid-row:auto !important;
+width:100% !important;
+min-width:0 !important;
+justify-self:center !important;
+justify-content:center !important;
+margin:4px auto 0 !important;
+grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+}
+.card .history-btn,
+.card .move-btn,
+.card .favorite-action-btn{
+width:100% !important;
+}
+}
+/* mobile only: keep centered action buttons compact, like before heart removal */
+@media(max-width:980px), (hover:none) and (pointer:coarse){
+.card .card-actions,
+body.view-card .card.with-cover .card-actions{
+width:min(204px, 100%) !important;
+min-width:0 !important;
+justify-self:center !important;
+justify-content:center !important;
+grid-template-columns:1fr 1fr !important;
+gap:8px !important;
+margin:4px auto 0 !important;
+}
+.card .history-btn,
+.card .move-btn,
+.card .favorite-action-btn{
+width:100% !important;
+min-height:38px !important;
+height:38px !important;
+padding:0 8px !important;
+font-size:13px !important;
+}
+}
+</style><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ25VZNV5H"></script><script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HQ25VZNV5H', { page_title: '마스터검색' });
+</script></head><body><div class="top-link-row"><div class="top-actions"><a class="ridi-top-btn" href="https://ridibooks.com/bl/ebook" target="_blank" rel="noopener noreferrer">리디로</a><button class="top-menu-btn" id="dateIndexBtn" type="button">목록</button><button class="heart-top-btn small" id="tasteTopBtn" type="button" aria-label="찜 목록">💚</button></div></div><main class="page" id="top"><header><h1 class="title">마스터검색🍀</h1><p class="desc">※전적으로 저를 믿으시면 안됩니다. <br>누락 및 오기입 노정에서 더블체크하세요</p></header><div id="installBanner" class="install-banner hidden"><span>📱 홈화면에 추가하면 앱처럼 사용할 수 있어요</span><button id="installHowBtn" type="button">방법</button><button id="installDismissBtn" type="button" aria-label="닫기">×</button></div><section class="panel" aria-label="검색 및 필터"><div class="search-row"><div><label for="q">통합검색</label><input id="q" type="search" placeholder="제목 또는 작가 검색" autocomplete="off"></div><div><label>&nbsp;</label><button id="searchBtn" type="button">검색</button></div></div><div class="quick-row"><div><label for="sortBy">정렬</label><select id="sortBy"><option value="default">기본순</option><option value="titleAsc">제목 가나다순</option><option value="authorAsc">작가 가나다순</option></select></div><div><label>&nbsp;</label><button id="resetBtn" class="secondary" type="button">초기화</button></div><div class="detail-toggle-cell"><label>&nbsp;</label><button id="detailToggleBtn" class="secondary detail-toggle-btn" type="button" aria-expanded="true" aria-controls="detailRow" title="상세검색 접기"><span class="detail-toggle-icon" aria-hidden="true"></span></button></div><div class="view-mode-row" aria-label="보기 방식"><label>&nbsp;</label><div class="view-mode-buttons"><button id="viewCardBtn" class="view-mode-btn" type="button" aria-label="카드형"><span class="card-view-icon" aria-hidden="true"></span></button><button id="viewListBtn" class="view-mode-btn" type="button" aria-label="리스트형"><span class="list-view-icon" aria-hidden="true"></span></button></div></div></div><div class="detail-row" id="detailRow"><div><label for="titleOnly">제목만 검색</label><input id="titleOnly" type="search" placeholder="제목에 포함될 단어" autocomplete="off"></div><div><label for="authorOnly">작가만 검색</label><input id="authorOnly" type="search" placeholder="작가명" autocomplete="off"></div><div><label for="discountRate">할인율</label><select id="discountRate"><option value="">전체 할인율</option></select></div><div><label for="exclude">제외어</label><input id="exclude" type="search" placeholder="제목/작가에서 제외" autocomplete="off"></div></div></section><section class="summary"><div class="count">검색 결과 <strong id="resultCount">0</strong>개</div><div class="summary-right"><div id="activeSummary" class="active-summary">필터 없음</div><button id="dateListClearBtn" class="date-list-clear-btn" type="button">선택 해제</button></div></section><section id="favoriteListBar" class="favorite-list-bar" aria-label="찜목록"><button id="favListMenuBtn" class="fav-list-menu-btn" type="button" aria-label="찜목록 메뉴">☰</button><select id="favListSelect" class="fav-list-select" aria-label="찜목록 바로 이동"></select><span id="favListCount" class="fav-list-count" aria-live="polite">0개</span><div id="favListMenu" class="fav-list-menu" hidden><button id="favListAddBtn" type="button" aria-label="찜목록 추가">＋</button><button id="favListDeleteBtn" type="button" aria-label="찜목록 삭제">−</button><input id="favListNameInput" type="text" maxlength="18" placeholder="+ 이름"><button id="favListRenameBtn" type="button" aria-label="이름 저장">✓</button></div></section><section id="favoriteFilterBar" class="favorite-filter-bar" aria-label="찜 필터"><div><label for="favDiscountRate">찜 할인율</label><select id="favDiscountRate"><option value="">전체 할인율</option></select></div><div><label for="favPricePreset">찜 금액순</label><select id="favPricePreset"><option value="">기본순</option><option value="priceAsc">낮은 금액순</option><option value="priceDesc">높은 금액순</option></select></div></section><div id="favoriteToast" class="favorite-toast" role="status" aria-live="polite"></div><section id="dateListView" class="date-list-view hidden" aria-label="출현연월 목록"><div class="date-list-head"><strong>출현연월 목록</strong><select id="dateYearFilter" aria-label="연도별 보기"><option value="">전체 연도</option></select></div><div id="dateListInline" class="date-list-inline"></div></section><section id="list" class="list" aria-label="작품 목록"></section><div id="empty" class="empty prompt hidden">검색값을 입력하세요</div><div id="error" class="error hidden"></div><div id="loadMoreWrap" class="load-more-wrap hidden"><button id="loadMoreBtn" type="button">더보기</button></div><div id="bottomAnchor"></div></main><div id="historyModalBackdrop" class="history-modal-backdrop" aria-hidden="true"><section class="history-modal" role="dialog" aria-modal="true" aria-labelledby="historyModalTitle"><div class="history-head"><h2 id="historyModalTitle">과거 할인율</h2><button id="historyModalClose" class="history-close" type="button" aria-label="닫기">×</button></div><p id="historyModalMeta" class="history-meta"></p><div id="historyModalBody" class="history-list"></div></section></div><div id="dateIndexBackdrop" class="date-index-backdrop" aria-hidden="true"><section class="date-index-modal" role="dialog" aria-modal="true" aria-labelledby="dateIndexTitle"><div class="history-head"><h2 id="dateIndexTitle">정리된 출현연월</h2><button id="dateIndexClose" class="history-close" type="button" aria-label="닫기">×</button></div><p class="date-index-desc">누락에 주의하세요</p><div id="dateIndexBody" class="date-index-list"></div></section></div><div id="tasteModalBackdrop" class="taste-modal-backdrop" aria-hidden="true"><section class="taste-modal" role="dialog" aria-modal="true" aria-labelledby="tasteModalTitle"><div class="history-head"><h2 id="tasteModalTitle">찐토리 취향</h2><button id="tasteModalClose" class="history-close" type="button" aria-label="닫기">×</button></div><p class="history-meta">냠💚</p><div class="taste-card-list"><article class="taste-card"><h3 class="taste-card-title">취향작 카드 1</h3><p class="taste-card-desc">준비중</p></article></div></section></div><nav class="mobile-tabbar" aria-label="모바일 탭"><button id="tabSearchBtn" type="button" class="mobile-tab active"><span>⌕</span><em>검색</em></button><button id="tabListBtn" type="button" class="mobile-tab"><span>☷</span><em>목록</em></button><button id="tabFavBtn" type="button" class="mobile-tab"><span>♡</span><em>찜</em></button></nav><div class="float-nav" aria-label="페이지 이동"><button id="goTopBtn" type="button" aria-label="맨 위로">↑</button><button id="goBottomBtn" type="button" aria-label="맨 아래로">↓</button></div><script>
+const PAGE_SIZE=100;
+const FAVORITE_LEGACY_KEY='dm_favorites';
+const FAVORITE_LISTS_STORAGE_KEY='dm_favorite_lists';
+const ACTIVE_FAVORITE_LIST_KEY='dm_active_favorite_list';
+function readJsonStorage(key,fallback){try{const raw=localStorage.getItem(key);return raw?JSON.parse(raw):fallback}catch{return fallback}}
+function loadFavoriteData(){const legacy=readJsonStorage(FAVORITE_LEGACY_KEY,[]);const saved=readJsonStorage(FAVORITE_LISTS_STORAGE_KEY,null);let lists=saved&&saved.lists&&typeof saved.lists==='object'?saved.lists:null;let names=saved&&saved.names&&typeof saved.names==='object'?saved.names:null;if(!lists){lists={fav1:Array.isArray(legacy)?legacy:[],fav2:[],fav3:[]};names={fav1:'',fav2:'',fav3:''}}['fav1','fav2','fav3'].forEach(id=>{if(!Array.isArray(lists[id]))lists[id]=[];if(!Object.prototype.hasOwnProperty.call(names,id))names[id]=''});let activeId=localStorage.getItem(ACTIVE_FAVORITE_LIST_KEY)||'fav1';if(!lists[activeId])activeId='fav1';return{lists,names,activeId}}
+const loadedFavoriteData=loadFavoriteData();
+const state={items:[],filtered:[],visibleCount:PAGE_SIZE,selectedHistoryDate:"",viewMode:localStorage.getItem("dm_view_mode")||"list",favoriteLists:loadedFavoriteData.lists,favoriteNames:loadedFavoriteData.names,activeFavoriteListId:loadedFavoriteData.activeId,favorites:new Set(loadedFavoriteData.lists[loadedFavoriteData.activeId]||[]),showFavorites:false,showDateList:false};
+const els={q:document.getElementById('q'),searchBtn:document.getElementById('searchBtn'),sortBy:document.getElementById('sortBy'),resetBtn:document.getElementById('resetBtn'),titleOnly:document.getElementById('titleOnly'),authorOnly:document.getElementById('authorOnly'),exclude:document.getElementById('exclude'),discountRate:document.getElementById('discountRate'),resultCount:document.getElementById('resultCount'),activeSummary:document.getElementById('activeSummary'),list:document.getElementById('list'),empty:document.getElementById('empty'),error:document.getElementById('error'),loadMoreWrap:document.getElementById('loadMoreWrap'),loadMoreBtn:document.getElementById('loadMoreBtn'),goTopBtn:document.getElementById('goTopBtn'),goBottomBtn:document.getElementById('goBottomBtn'),bottomAnchor:document.getElementById('bottomAnchor'),detailToggleBtn:document.getElementById('detailToggleBtn'),detailRow:document.getElementById('detailRow')};
+Object.assign(els,{favListBar:document.getElementById('favoriteListBar'),favListSelect:document.getElementById('favListSelect'),favListMenuBtn:document.getElementById('favListMenuBtn'),favListMenu:document.getElementById('favListMenu'),favListAddBtn:document.getElementById('favListAddBtn'),favListDeleteBtn:document.getElementById('favListDeleteBtn'),favListNameInput:document.getElementById('favListNameInput'),favListRenameBtn:document.getElementById('favListRenameBtn'),favListCount:document.getElementById('favListCount'),favDiscountRate:document.getElementById('favDiscountRate'),favPricePreset:document.getElementById('favPricePreset'),favoriteToast:document.getElementById('favoriteToast'),tasteTopBtn:document.getElementById('tasteTopBtn')});
+function normalizeText(value){return String(value??'').trim().toLowerCase().replace(/\s+/g,'')}
+function toNumber(value){if(typeof value==='number')return value;const text=String(value??'').replace(/[^\d.-]/g,'');const num=Number(text);return Number.isFinite(num)?num:0}
+function historyCount(value){return String(value||'').split(',').map(v=>v.trim()).filter(Boolean).length}
+function normalizeItem(item,index){
+const title=String(item.title??'').trim();
+const author=String(item.author??'').trim();
+const history=String(item.history??item.pastDiscount??item['과거할인율']??'').trim();
+const historyItems=parseHistory(history);
+const latest=latestHistoryEntry(history);
+return{
+workId:String(item.workId??item.id??'').trim(),
+title,author,
+_titleNorm:normalizeText(title),
+_authorNorm:normalizeText(author),
+_joinedNorm:normalizeText(title+author),
+link:String(item.link??'').trim(),
+discount:toNumber(item.discount),
+price:toNumber(item.price),
+type:String(item.type??'').trim(),
+cover:String(item.cover??item.coverUrl??item['표지주소']??item['표지']??'').trim(),
+history,
+_historyItems:historyItems,
+_historyCache:null,
+appearCount:historyItems.length,
+latestEntry:latest,
+originalIndex:index
+}}
+function hasSearchCriteria(){return Boolean(els.q.value.trim()||els.titleOnly.value.trim()||els.authorOnly.value.trim()||els.exclude.value.trim()||els.discountRate.value||state.selectedHistoryDate)}
+function getRateKey(value){const m=String(value||'').match(/(\d+)\s*%/);return m?m[1]:''}
+function historyMatchesSelected(item){const selectedDate=state.selectedHistoryDate,selectedRate=els.discountRate.value;if(!selectedDate&&!selectedRate)return true;return item._historyItems.some(entry=>{if(selectedDate&&entry.date!==selectedDate)return false;if(selectedRate&&getRateKey(entry.rate)!==selectedRate)return false;return true})}
+function applyFilters(){const hasCriteria=hasSearchCriteria();if(!hasCriteria){state.filtered=[];state.visibleCount=PAGE_SIZE;updateSummary();render(true);return}const q=normalizeText(els.q.value),titleOnly=normalizeText(els.titleOnly.value),authorOnly=normalizeText(els.authorOnly.value),exclude=normalizeText(els.exclude.value);let result=state.items.filter(item=>{const title=item._titleNorm,author=item._authorNorm,joined=item._joinedNorm;if(!historyMatchesSelected(item))return false;if(q&&!(title.includes(q)||author.includes(q)))return false;if(titleOnly&&!title.includes(titleOnly))return false;if(authorOnly&&!author.includes(authorOnly))return false;if(exclude&&joined.includes(exclude))return false;return true});state.filtered=applySort(result);state.visibleCount=PAGE_SIZE;updateSummary();render(false)}
+function applySort(list){const sort=els.sortBy.value,arr=[...list];const byText=f=>(a,b)=>String(a[f]||'').localeCompare(String(b[f]||''),'ko-KR',{numeric:true});if(sort==='titleAsc')arr.sort(byText('title'));if(sort==='authorAsc')arr.sort(byText('author'));if(sort==='default')arr.sort((a,b)=>a.originalIndex-b.originalIndex);return arr}
+function updateSummary(){const p=[];if(state.selectedHistoryDate)p.push(`출현연월: ${state.selectedHistoryDate}`);if(els.q.value.trim())p.push(`통합: ${els.q.value.trim()}`);if(els.sortBy.value!=='default')p.push(`정렬: ${els.sortBy.options[els.sortBy.selectedIndex].textContent}`);if(els.discountRate.value)p.push(`할인율: ${els.discountRate.value}%`);if(els.titleOnly.value.trim())p.push(`제목: ${els.titleOnly.value.trim()}`);if(els.authorOnly.value.trim())p.push(`작가: ${els.authorOnly.value.trim()}`);if(els.exclude.value.trim())p.push(`제외: ${els.exclude.value.trim()}`);els.activeSummary.textContent=p.length?p.join(' · '):'필터 없음'}
+function makeSearchLink(item){const q=encodeURIComponent(String(item.title||'').trim());return q?`https://ridibooks.com/search?q=${q}&adult_exclude=n&tab=WEBNOVEL&child_tab=BL_WEBNOVEL`:''}
+function parseHistory(value){return String(value||'').split(',').map(v=>v.trim()).filter(Boolean).map(v=>{const m=v.match(/^(\d{6}\S*)\s+(.*)$/);return m?{date:m[1],rate:m[2].trim()||'-'}:{date:'기록',rate:v}})}
+function latestHistoryEntry(value){const entries=parseHistory(value).filter(entry=>entry.date&&entry.date!=='기록');if(!entries.length)return null;return [...entries].sort((a,b)=>String(b.date).slice(0,6).localeCompare(String(a.date).slice(0,6),'ko-KR',{numeric:true}))[0]}
+function populateDiscountOptions(){const rates=[...new Set(state.items.flatMap(item=>parseHistory(item.history).map(entry=>getRateKey(entry.rate)).filter(Boolean)))].sort((a,b)=>Number(a)-Number(b));const opts='<option value="">전체 할인율</option>'+rates.map(rate=>`<option value="${rate}">${rate}%</option>`).join('');els.discountRate.innerHTML=opts;if(els.favDiscountRate)els.favDiscountRate.innerHTML=opts}
+function openHistoryModal(item){const backdrop=document.getElementById('historyModalBackdrop'),title=document.getElementById('historyModalTitle'),meta=document.getElementById('historyModalMeta'),body=document.getElementById('historyModalBody');title.textContent=item.title||'과거 할인율';meta.textContent=(item.author||'작가 정보 없음')+' · 과거 마크다운 할인율';body.innerHTML='';const entries=item._historyCache||(item._historyCache=item._historyItems);if(!entries.length){const empty=document.createElement('div');empty.className='history-empty';empty.textContent='정리된 과거 할인율이 없습니다.';body.appendChild(empty)}else{entries.forEach(entry=>{const row=document.createElement('div');row.className='history-row';const date=document.createElement('span');date.className='history-date';date.textContent=entry.date;const rate=document.createElement('span');rate.className='history-rate';rate.textContent=entry.rate;row.append(date,rate);body.appendChild(row)})}backdrop.classList.add('open');backdrop.setAttribute('aria-hidden','false');document.body.classList.add('modal-open')}
+function closeHistoryModal(){const backdrop=document.getElementById('historyModalBackdrop');backdrop.classList.remove('open');backdrop.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')}
+function getHistoryDateCounts(){const counts=new Map();state.items.forEach(item=>{new Set(item._historyItems.map(entry=>entry.date).filter(date=>date&&date!=='기록')).forEach(date=>counts.set(date,(counts.get(date)||0)+1))});return [...counts.entries()].sort((a,b)=>b[0].localeCompare(a[0],'ko-KR',{numeric:true}))}
+function getHistoryYears(){
+return [...new Set(getHistoryDateCounts().map(([date])=>String(date).slice(0,4)).filter(Boolean))].sort((a,b)=>b.localeCompare(a,'ko-KR',{numeric:true}));
+}
+function populateDateYearFilter(){
+const sel=document.getElementById('dateYearFilter');
+if(!sel)return;
+const current=sel.value;
+const years=getHistoryYears();
+sel.innerHTML='<option value="">전체 연도</option>'+years.map(y=>`<option value="${y}">${y}년</option>`).join('');
+if(years.includes(current))sel.value=current;
+}
+function renderDateListInline(){
+const wrap=document.getElementById('dateListInline');
+const yearSel=document.getElementById('dateYearFilter');
+const clearBtn=document.getElementById('dateListClearBtn');
+if(!wrap)return;
+if(clearBtn)clearBtn.disabled=!state.selectedHistoryDate;
+const year=yearSel?yearSel.value:'';
+const dates=getHistoryDateCounts().filter(([date])=>!year||String(date).startsWith(year));
+wrap.innerHTML='';
+if(!dates.length){
+const empty=document.createElement('div');
+empty.className='date-list-empty';
+empty.textContent='정리된 출현연월이 없습니다.';
+wrap.appendChild(empty);
+return;
+}
+dates.forEach(([date,count])=>{
+const isSelected=state.selectedHistoryDate===date;
+const btn=document.createElement('button');
+btn.type='button';
+btn.className='date-list-item'+(isSelected?' active':'');
+btn.setAttribute('aria-pressed',String(isSelected));
+btn.innerHTML=`<span>${isSelected?'✓ ':''}${date}</span>`;
+btn.addEventListener('click',()=>{
+if(isSelected){
+state.selectedHistoryDate='';
+state.showDateList=true;
+state.showFavorites=false;
+document.body.classList.add('date-list-mode');
+document.body.classList.remove('favorite-mode');
+applyFilters();
+renderDateListInline();
+updateBottomTabs();
+return;
+}
+state.selectedHistoryDate=date;
+state.showDateList=false;
+state.showFavorites=false;
+document.body.classList.remove('date-list-mode','favorite-mode');
+applyFilters();
+updateBottomTabs();
+window.scrollTo({top:0,behavior:'smooth'});
+});
+wrap.appendChild(btn);
+});
+}
+function setDateListMode(on){
+state.showDateList=on;
+if(on)state.showFavorites=false;
+document.body.classList.toggle('date-list-mode',on);
+document.body.classList.toggle('favorite-mode',state.showFavorites);
+populateDateYearFilter();
+renderDateListInline();
+updateBottomTabs();
+render(false);
+}
+function openDateIndex(){const backdrop=document.getElementById('dateIndexBackdrop'),body=document.getElementById('dateIndexBody');body.innerHTML='';const clearBtn=document.createElement('button');clearBtn.type='button';clearBtn.className='clear-date-btn';clearBtn.textContent=state.selectedHistoryDate?'선택 해제':'전체 목차';clearBtn.addEventListener('click',()=>{state.selectedHistoryDate='';closeDateIndex();applyFilters()});body.appendChild(clearBtn);getHistoryDateCounts().forEach(([date,count])=>{const isSelected=state.selectedHistoryDate===date;const btn=document.createElement('button');btn.type='button';btn.className='date-chip'+(isSelected?' active':'');btn.setAttribute('aria-pressed',String(isSelected));btn.textContent=(isSelected?'✓ ':'')+date;btn.addEventListener('click',()=>{state.selectedHistoryDate=isSelected?'':date;closeDateIndex();applyFilters()});body.appendChild(btn)});backdrop.classList.add('open');backdrop.setAttribute('aria-hidden','false');document.body.classList.add('modal-open')}
+function closeDateIndex(){const backdrop=document.getElementById('dateIndexBackdrop');backdrop.classList.remove('open');backdrop.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')}
+function itemKey(item){return item.workId||item.link||`${item.title}__${item.author}`}
+function favoriteListIds(){return Object.keys(state.favoriteLists).sort((a,b)=>{const na=Number(String(a).replace(/\D/g,''))||0,nb=Number(String(b).replace(/\D/g,''))||0;return na-nb})}
+function favoriteDisplayName(id){const n=String(state.favoriteNames[id]||'').trim();const num=String(id).replace(/\D/g,'')||'';return n?`찜${num} ${n}`:`찜${num}`}
+function saveFavorites(){state.favoriteLists[state.activeFavoriteListId]=[...state.favorites];localStorage.setItem(FAVORITE_LISTS_STORAGE_KEY,JSON.stringify({lists:state.favoriteLists,names:state.favoriteNames}));localStorage.setItem(ACTIVE_FAVORITE_LIST_KEY,state.activeFavoriteListId);localStorage.setItem(FAVORITE_LEGACY_KEY,JSON.stringify([...state.favorites]))}
+function refreshFavoriteListUI(){if(!els.favListSelect)return;const ids=favoriteListIds();els.favListSelect.innerHTML=ids.map(id=>`<option value="${id}">${favoriteDisplayName(id)}</option>`).join('');els.favListSelect.value=state.activeFavoriteListId;if(els.favListNameInput)els.favListNameInput.value=state.favoriteNames[state.activeFavoriteListId]||'';if(els.favListCount)els.favListCount.textContent=`${state.favorites.size.toLocaleString('ko-KR')}개`}
+function switchFavoriteList(id){if(!state.favoriteLists[id])return;state.favoriteLists[state.activeFavoriteListId]=[...state.favorites];state.activeFavoriteListId=id;state.favorites=new Set(state.favoriteLists[id]||[]);saveFavorites();refreshFavoriteListUI();state.visibleCount=PAGE_SIZE;render(false);updateBottomTabs()}
+function addFavoriteList(){const nums=favoriteListIds().map(id=>Number(String(id).replace(/\D/g,''))||0);const next=(nums.length?Math.max(...nums):0)+1;const id=`fav${next}`;state.favoriteLists[id]=[];state.favoriteNames[id]='';switchFavoriteList(id);if(els.favListMenu)els.favListMenu.hidden=true}
+function deleteFavoriteList(){const ids=favoriteListIds();if(ids.length<=1){showFavoriteToast('찜목록은 1개 이상 필요합니다');return}const current=state.activeFavoriteListId;if(!confirm(`${favoriteDisplayName(current)}을 삭제할까요?`))return;delete state.favoriteLists[current];delete state.favoriteNames[current];const nextId=favoriteListIds()[0];state.activeFavoriteListId=nextId;state.favorites=new Set(state.favoriteLists[nextId]||[]);saveFavorites();refreshFavoriteListUI();state.visibleCount=PAGE_SIZE;render(false);if(els.favListMenu)els.favListMenu.hidden=true}
+function renameFavoriteList(){const name=String(els.favListNameInput?.value||'').trim();state.favoriteNames[state.activeFavoriteListId]=name;saveFavorites();refreshFavoriteListUI();if(els.favListMenu)els.favListMenu.hidden=true}
+function isFavorite(item){return state.favorites.has(itemKey(item))}
+function showFavoriteToast(msg){if(!els.favoriteToast)return;els.favoriteToast.textContent=msg;els.favoriteToast.classList.add('show');clearTimeout(showFavoriteToast._timer);showFavoriteToast._timer=setTimeout(()=>els.favoriteToast.classList.remove('show'),1200)}
+function toggleFavorite(item){const key=itemKey(item);if(state.favorites.has(key)){state.favorites.delete(key);showFavoriteToast('찜에서 뺐습니다')}else{state.favorites.add(key);showFavoriteToast('찜했습니다')}saveFavorites();refreshFavoriteListUI();render(false);updateBottomTabs()}
+function moveFavoriteItemToList(item,targetId){const key=itemKey(item);if(!state.favoriteLists[targetId]||targetId===state.activeFavoriteListId)return;state.favorites.delete(key);state.favoriteLists[state.activeFavoriteListId]=[...state.favorites];const targetSet=new Set(state.favoriteLists[targetId]||[]);targetSet.add(key);state.favoriteLists[targetId]=[...targetSet];saveFavorites();refreshFavoriteListUI();state.visibleCount=PAGE_SIZE;render(false);updateBottomTabs();showFavoriteToast(`${favoriteDisplayName(targetId)}으로 이동했습니다`)}
+function closeFavoriteMoveMenu(){document.querySelectorAll('.favorite-move-popover').forEach(el=>el.remove());document.removeEventListener('click',closeFavoriteMoveMenu._outside,true)}
+function openFavoriteMoveMenu(item,anchor){const targets=favoriteListIds().filter(id=>id!==state.activeFavoriteListId);if(!targets.length){showFavoriteToast('이동할 다른 찜목록이 없습니다');return}closeFavoriteMoveMenu();const menu=document.createElement('div');menu.className='favorite-move-popover';menu.setAttribute('role','menu');targets.forEach(id=>{const btn=document.createElement('button');btn.type='button';btn.textContent=favoriteDisplayName(id);btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();closeFavoriteMoveMenu();moveFavoriteItemToList(item,id)});menu.appendChild(btn)});document.body.appendChild(menu);const rect=(anchor&&anchor.getBoundingClientRect)?anchor.getBoundingClientRect():{left:window.innerWidth/2,top:window.innerHeight/2,bottom:window.innerHeight/2};const menuRect=menu.getBoundingClientRect();let left=Math.min(Math.max(12,rect.left),window.innerWidth-menuRect.width-12);let top=rect.bottom+6;if(top+menuRect.height>window.innerHeight-12)top=Math.max(12,rect.top-menuRect.height-6);menu.style.left=left+'px';menu.style.top=top+'px';closeFavoriteMoveMenu._outside=function(e){if(!menu.contains(e.target)&&e.target!==anchor)closeFavoriteMoveMenu()};setTimeout(()=>document.addEventListener('click',closeFavoriteMoveMenu._outside,true),0)}
+function filterFavoriteItems(list){let arr=[...list];if(els.favDiscountRate&&els.favDiscountRate.value)arr=arr.filter(item=>item._historyItems.some(entry=>getRateKey(entry.rate)===String(els.favDiscountRate.value)));const sort=els.favPricePreset?els.favPricePreset.value:'';if(sort==='priceAsc')arr.sort((a,b)=>(a.price||0)-(b.price||0));else if(sort==='priceDesc')arr.sort((a,b)=>(b.price||0)-(a.price||0));else arr=applySort(arr);return arr}
+function setViewMode(mode){state.viewMode=mode;localStorage.setItem('dm_view_mode',mode);document.body.classList.toggle('view-card',mode==='card');document.body.classList.toggle('view-list',mode!=='card');updateViewButtons();render(false)}
+function updateViewButtons(){const card=document.getElementById('viewCardBtn'),list=document.getElementById('viewListBtn');if(card)card.classList.toggle('active',state.viewMode==='card');if(list)list.classList.toggle('active',state.viewMode!=='card')}
+function setFavoriteMode(on){state.showFavorites=on;if(on)state.showDateList=false;document.body.classList.toggle("favorite-mode",on);document.body.classList.toggle("date-list-mode",state.showDateList);state.visibleCount=PAGE_SIZE;refreshFavoriteListUI();updateBottomTabs();render(false)}
+function updateBottomTabs(){const s=document.getElementById('tabSearchBtn'),l=document.getElementById('tabListBtn'),f=document.getElementById('tabFavBtn'),top=document.getElementById('tasteTopBtn');if(s)s.classList.toggle('active',!state.showFavorites&&!state.showDateList);if(f)f.classList.toggle('active',state.showFavorites);if(l)l.classList.toggle('active',state.showDateList);if(top){top.classList.toggle('is-on',state.showFavorites);top.setAttribute('aria-pressed',String(state.showFavorites));}}
+function render(isPrompt=false){const source=state.showFavorites?filterFavoriteItems(state.items.filter(item=>isFavorite(item))):state.filtered;const total=source.length,visible=source.slice(0,state.visibleCount);els.resultCount.textContent=total.toLocaleString('ko-KR');els.list.innerHTML='';if(state.showFavorites){els.empty.textContent=total?'':'찜한 작품이 없습니다.'}else{els.empty.textContent=isPrompt?'검색값을 입력하세요':'조건에 맞는 작품이 없습니다.'}els.empty.classList.toggle('prompt',isPrompt&&!state.showFavorites);els.empty.classList.toggle('hidden',state.showFavorites?total!==0:(isPrompt?false:total!==0));els.loadMoreWrap.classList.toggle('hidden',isPrompt||state.visibleCount>=total);if(isPrompt&&!state.showFavorites)return;const frag=document.createDocumentFragment();visible.forEach(item=>{const card=document.createElement('article');card.className='card'+(state.viewMode==='card'?' with-cover':'');if(state.viewMode==='card'){const cover=item.cover?document.createElement(item.link?'a':'div'):document.createElement('div');cover.className='book-cover'+(item.cover?'':' no-cover');if(item.cover&&item.link){cover.href=item.link;cover.target='_blank';cover.rel='noopener noreferrer'}if(item.cover){const img=document.createElement('img');img.src=item.cover;img.alt='';img.loading='lazy';img.decoding='async';cover.appendChild(img)}else{const noCover=document.createElement('span');noCover.textContent='이미지 없음';cover.appendChild(noCover)}card.appendChild(cover)}const fav=document.createElement('button');fav.className='favorite-toggle'+(isFavorite(item)?' is-on':'');fav.type='button';fav.textContent=isFavorite(item)?'♥':'♡';fav.setAttribute('aria-label',isFavorite(item)?'찜 해제':'찜하기');fav.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();toggleFavorite(item)});const info=document.createElement('div');info.className='card-info';const title=document.createElement(item.link?'a':'span');title.className='book-title'+(item.link?'':' no-link');title.textContent=item.title||'(제목 없음)';if(item.link){title.href=item.link;title.target='_blank';title.rel='noopener noreferrer'}const meta=document.createElement('p');meta.className='book-meta';meta.textContent=item.author||'작가 정보 없음';info.append(title,meta);const middle=document.createElement('div');middle.className='card-middle';const hCount=historyCount(item.history);if(hCount){const recent=latestHistoryEntry(item.history);const historySummary=document.createElement('div');historySummary.className='book-history-inline';const countLine=document.createElement('span');countLine.className='history-pill';countLine.textContent=`출현 ${hCount}회`;historySummary.appendChild(countLine);if(recent){const recentLine=document.createElement('span');recentLine.className='history-pill recent';recentLine.textContent=`최근 ${recent.date} ${recent.rate}`;historySummary.appendChild(recentLine)}middle.appendChild(historySummary)}const actions=document.createElement('div');actions.className='card-actions';const historyBtn=document.createElement('button');historyBtn.className='history-btn'+(item.history?'':' disabled');historyBtn.type='button';historyBtn.textContent='과거';historyBtn.title=item.history?'과거 할인율 보기':'정리된 과거 할인율 없음';if(item.history)historyBtn.addEventListener('click',()=>openHistoryModal(item));const favAction=document.createElement('button');favAction.className='favorite-action-btn'+(isFavorite(item)?' is-on':'');favAction.type='button';favAction.textContent=isFavorite(item)?'찜됨':'찜';favAction.title=isFavorite(item)?'다른 찜목록으로 이동하거나 찜 해제':'현재 찜목록에 추가';favAction.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();toggleFavorite(item)});favAction.addEventListener('contextmenu',e=>{e.preventDefault();if(isFavorite(item))openFavoriteMoveMenu(item,favAction)});actions.append(historyBtn,favAction);card.append(fav,info,middle,actions);frag.appendChild(card)});els.list.appendChild(frag)}
+function setDetailCollapsed(collapsed){
+if(!els.detailToggleBtn||!els.detailRow)return;
+els.detailRow.classList.toggle('mobile-collapsed',collapsed);
+els.detailToggleBtn.classList.toggle('is-collapsed',collapsed);
+els.detailToggleBtn.title=collapsed?'상세검색 펼치기':'상세검색 접기';
+els.detailToggleBtn.setAttribute('aria-expanded',String(!collapsed));
+}
+function toggleDetailPanel(){
+if(!window.matchMedia('(max-width:980px)').matches)return;
+setDetailCollapsed(!els.detailRow.classList.contains('mobile-collapsed'));
+}
+function resetAll(){els.q.value='';els.sortBy.value='default';els.titleOnly.value='';els.authorOnly.value='';els.exclude.value='';els.discountRate.value='';state.selectedHistoryDate='';applyFilters()}
+function debounce(fn,delay){let timer;return(...args)=>{clearTimeout(timer);timer=setTimeout(()=>fn(...args),delay)}}
+function bindEvents(){els.searchBtn.addEventListener('click',applyFilters);[els.q,els.titleOnly,els.authorOnly,els.exclude].forEach(input=>{
+input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();applyFilters();e.currentTarget.blur()}});
+});els.sortBy.addEventListener('change',applyFilters);els.discountRate.addEventListener('change',applyFilters);els.resetBtn.addEventListener('click',resetAll);if(els.detailToggleBtn)els.detailToggleBtn.addEventListener('click',toggleDetailPanel);els.loadMoreBtn.addEventListener('click',()=>{state.visibleCount+=PAGE_SIZE;render()});els.goTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));els.goBottomBtn.addEventListener('click',()=>els.bottomAnchor.scrollIntoView({behavior:'smooth'}));document.getElementById('historyModalClose').addEventListener('click',closeHistoryModal);document.getElementById('historyModalBackdrop').addEventListener('click',e=>{if(e.target.id==='historyModalBackdrop')closeHistoryModal()});document.getElementById('dateIndexBtn').addEventListener('click',openDateIndex);document.getElementById('dateIndexClose').addEventListener('click',closeDateIndex);document.getElementById('dateIndexBackdrop').addEventListener('click',e=>{if(e.target.id==='dateIndexBackdrop')closeDateIndex()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeHistoryModal();closeDateIndex()}});const vc=document.getElementById('viewCardBtn'),vl=document.getElementById('viewListBtn');if(vc)vc.addEventListener('click',()=>setViewMode('card'));if(vl)vl.addEventListener('click',()=>setViewMode('list'));const ts=document.getElementById('tabSearchBtn'),tl=document.getElementById('tabListBtn'),tf=document.getElementById('tabFavBtn');if(ts)ts.addEventListener('click',()=>{state.showDateList=false;document.body.classList.remove('date-list-mode');setFavoriteMode(false);window.scrollTo({top:0,behavior:'smooth'})});if(tl)tl.addEventListener('click',()=>setDateListMode(!state.showDateList));if(tf)tf.addEventListener('click',()=>setFavoriteMode(!state.showFavorites));
+if(els.tasteTopBtn)els.tasteTopBtn.addEventListener('click',e=>{e.preventDefault();setFavoriteMode(!state.showFavorites);window.scrollTo({top:0,behavior:'smooth'})});
+if(els.favListSelect)els.favListSelect.addEventListener('change',e=>switchFavoriteList(e.target.value));
+if(els.favListMenuBtn)els.favListMenuBtn.addEventListener('click',e=>{e.preventDefault();els.favListMenu.hidden=!els.favListMenu.hidden});
+if(els.favListAddBtn)els.favListAddBtn.addEventListener('click',addFavoriteList);
+if(els.favListDeleteBtn)els.favListDeleteBtn.addEventListener('click',deleteFavoriteList);
+if(els.favListRenameBtn)els.favListRenameBtn.addEventListener('click',renameFavoriteList);
+if(els.favListNameInput)els.favListNameInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();renameFavoriteList()}});
+[els.favDiscountRate,els.favPricePreset].forEach(el=>{if(el)el.addEventListener('change',()=>{state.visibleCount=PAGE_SIZE;render(false)})});
+const dy=document.getElementById('dateYearFilter');if(dy)dy.addEventListener('change',renderDateListInline);const dc=document.getElementById('dateListClearBtn');if(dc)dc.addEventListener('click',()=>{state.selectedHistoryDate='';applyFilters();renderDateListInline();updateBottomTabs();window.scrollTo({top:0,behavior:'smooth'})});const ib=document.getElementById('installBanner'),ih=document.getElementById('installHowBtn'),id=document.getElementById('installDismissBtn');const isStandalone=((window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone);const dismissed=localStorage.getItem('dm_install_dismissed')==='1';if(ib){ib.classList.remove('hidden','is-visible','is-dismissed');ib.style.display='';if(!isStandalone&&!dismissed){ib.classList.add('is-visible')}else{ib.classList.add('is-dismissed')}}if(ih)ih.addEventListener('click',()=>alert('아이폰 Safari 하단 공유 버튼(□↑) → 홈 화면에 추가를 누르면 앱처럼 열 수 있습니다.'));if(id&&ib)id.addEventListener('click',()=>{localStorage.setItem('dm_install_dismissed','1');ib.classList.remove('is-visible');ib.classList.add('is-dismissed');ib.style.display='none'});}
+async function init(){bindEvents();document.body.classList.toggle('view-card',state.viewMode==='card');document.body.classList.toggle('view-list',state.viewMode!=='card');updateViewButtons();document.body.classList.toggle("favorite-mode",state.showFavorites);document.body.classList.toggle("date-list-mode",state.showDateList);updateBottomTabs();setDetailCollapsed(window.matchMedia('(max-width:980px)').matches);try{const res=await fetch('./w_3f26867e81e3.json',{cache:'no-store'});if(!res.ok)throw new Error('w_3f26867e81e3.json을 불러오지 못했습니다.');const data=await res.json();if(!Array.isArray(data))throw new Error('w_3f26867e81e3.json 형식이 배열이 아닙니다.');state.items=data.map(normalizeItem);populateDiscountOptions();populateDateYearFilter();refreshFavoriteListUI();state.filtered=[...state.items];applyFilters()}catch(err){els.error.textContent='w_3f26867e81e3.json을 불러오지 못했습니다. index.html과 같은 위치에 works.json을 올려주세요.';els.error.classList.remove('hidden');console.error(err)}}
+init();
+</script><script>
+document.addEventListener('click',function(e){
+var a=e.target.closest&&e.target.closest('.back-to-main');
+if(!a) return;
+e.preventDefault();
+if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+window.location.href='https://dmnovel.github.io/events/';
+},true);
+</script><script>
+(function(){
+const tasteBackdrop=document.getElementById('tasteModalBackdrop');
+const tasteClose=document.getElementById('tasteModalClose');
+function closeTaste(){
+if(!tasteBackdrop) return;
+tasteBackdrop.classList.remove('open');
+tasteBackdrop.setAttribute('aria-hidden','true');
+document.body.classList.remove('modal-open');
+}
+if(tasteClose) tasteClose.addEventListener('click',closeTaste);
+if(tasteBackdrop) tasteBackdrop.addEventListener('click',function(e){if(e.target===tasteBackdrop) closeTaste();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeTaste();closeFavoriteMoveMenu&&closeFavoriteMoveMenu();}});
+})();
+</script><script>
+(function(){
+if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+document.body.classList.add('standalone');
+}
+})();
+</script><script>
+/* mobile-only heart removal JS fallback */
+(function(){
+function isMobileLike(){
+return (window.matchMedia && (window.matchMedia('(max-width: 980px)').matches || window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.matchMedia('(display-mode: standalone)').matches)) || window.navigator.standalone === true;
+}
+function applyMobileHeartVisibility(){
+var mobile=isMobileLike();
+var topHeart=document.getElementById('tasteTopBtn');
+if(topHeart){
+if(mobile){
+topHeart.style.setProperty('display','none','important');
+topHeart.style.setProperty('visibility','hidden','important');
+topHeart.setAttribute('aria-hidden','true');
+topHeart.tabIndex=-1;
+}else{
+topHeart.style.removeProperty('display');
+topHeart.style.removeProperty('visibility');
+topHeart.setAttribute('aria-hidden','false');
+topHeart.tabIndex=0;
+}
+}
+document.querySelectorAll('.favorite-toggle').forEach(function(btn){
+if(mobile){
+btn.style.setProperty('display','none','important');
+btn.style.setProperty('visibility','hidden','important');
+btn.setAttribute('aria-hidden','true');
+btn.tabIndex=-1;
+}else{
+btn.style.removeProperty('display');
+btn.style.removeProperty('visibility');
+btn.setAttribute('aria-hidden','false');
+btn.tabIndex=0;
+}
+});
+}
+document.addEventListener('DOMContentLoaded', applyMobileHeartVisibility);
+window.addEventListener('load', applyMobileHeartVisibility);
+window.addEventListener('resize', applyMobileHeartVisibility);
+window.addEventListener('orientationchange', applyMobileHeartVisibility);
+setInterval(applyMobileHeartVisibility, 800);
+})();
+</script><script>
+(function(){
+function send(name, params){
+if(typeof gtag === 'function') gtag('event', name, Object.assign({ page_type:'master_search' }, params || {}));
+}
+window.__sendMasterGaEvent = send;
+document.addEventListener('click', function(e){
+var t=e.target && e.target.closest ? e.target.closest('button,a') : null;
+if(!t) return;
+if(t.id==='tasteTopBtn') send('wish_open');
+if(t.id==='dateIndexBtn') send('date_open');
+if(t.classList && t.classList.contains('date-chip')) send('date_filter_click');
+if(t.classList && t.classList.contains('date-list-item')) send('date_filter_click');
+if(t.classList && t.classList.contains('history-btn')) send('history_open');
+if(t.classList && t.classList.contains('favorite-action-btn')){
+var on=t.classList.contains('is-on');
+send(on ? 'wish_remove' : 'wish_add');
+}
+if(t.classList && t.classList.contains('favorite-move-popover')) send('wish_move');
+if(t.id==='favListMenuBtn') send('wish_menu_open');
+}, true);
+document.addEventListener('contextmenu', function(e){
+var t=e.target && e.target.closest ? e.target.closest('.favorite-action-btn') : null;
+if(t) send('wish_menu_open');
+}, true);
+})();
+</script></body></html>
