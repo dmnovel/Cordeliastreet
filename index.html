@@ -1166,6 +1166,65 @@ body.favorite-mode .favorite-filter-bar{display:grid;grid-template-columns:1fr 1
 @media(max-width:980px){
   #detailRow.mobile-collapsed{display:none!important}
 }
+
+
+/* mobile text-list cards: two rows only (title/author, then history/actions) */
+@media(max-width:980px){
+  body.view-list .card{
+    grid-template-columns:minmax(0,1fr) auto !important;
+    grid-template-rows:auto auto !important;
+    column-gap:8px !important;
+    row-gap:10px !important;
+    align-items:center !important;
+  }
+  body.view-list .card-info{
+    grid-column:1 / -1 !important;
+    grid-row:1 !important;
+    min-width:0 !important;
+    width:100% !important;
+  }
+  body.view-list .card-middle{
+    grid-column:1 !important;
+    grid-row:2 !important;
+    min-width:0 !important;
+    width:auto !important;
+    max-width:none !important;
+    justify-self:start !important;
+    text-align:left !important;
+  }
+  body.view-list .book-history-inline{
+    justify-content:flex-start !important;
+    flex-wrap:nowrap !important;
+    gap:6px !important;
+  }
+  body.view-list .history-pill{
+    min-height:28px !important;
+    padding:0 8px !important;
+    font-size:12px !important;
+  }
+  body.view-list .card-actions{
+    grid-column:2 !important;
+    grid-row:2 !important;
+    width:auto !important;
+    min-width:0 !important;
+    justify-self:end !important;
+    display:grid !important;
+    grid-template-columns:46px 46px !important;
+    gap:8px !important;
+    margin:0 !important;
+  }
+  body.view-list .card-actions .history-btn,
+  body.view-list .card-actions .favorite-action-btn,
+  body.view-list .card-actions .move-btn{
+    width:46px !important;
+    min-width:46px !important;
+    min-height:38px !important;
+    height:38px !important;
+    padding:0 4px !important;
+    font-size:13px !important;
+  }
+}
+
 </style><script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ25VZNV5H"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-HQ25VZNV5H');</script>
 <style id="mobile-detail-two-row-fix">
 @media (max-width:980px){
@@ -1576,7 +1635,7 @@ if(els.favListRenameBtn)els.favListRenameBtn.addEventListener('click',renameFavo
 if(els.favListNameInput)els.favListNameInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();renameFavoriteList()}});
 [els.favDiscountRate,els.favPricePreset].forEach(el=>{if(el)el.addEventListener('change',()=>{state.visibleCount=PAGE_SIZE;render(false)})});
 const dy=document.getElementById('dateYearFilter');if(dy)dy.addEventListener('change',renderDateListInline);const ds=document.getElementById('dateListSearchBtn');if(ds)ds.addEventListener('click',()=>{if(!state.selectedHistoryDates.size)return;state.showDateList=false;state.showFavorites=false;document.body.classList.remove('date-list-mode','favorite-mode');applyFilters();updateBottomTabs();window.scrollTo({top:0,behavior:'smooth'})});const dc=document.getElementById('dateListClearBtn');if(dc)dc.addEventListener('click',()=>{state.selectedHistoryDates.clear();applyFilters();renderDateListInline();updateBottomTabs();window.scrollTo({top:0,behavior:'smooth'})});const ib=document.getElementById('installBanner'),ih=document.getElementById('installHowBtn'),id=document.getElementById('installDismissBtn');const isStandalone=((window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone);const dismissed=localStorage.getItem('dm_install_dismissed')==='1';if(ib){ib.classList.remove('hidden','is-visible','is-dismissed');ib.style.display='';if(!isStandalone&&!dismissed){ib.classList.add('is-visible')}else{ib.classList.add('is-dismissed')}}if(ih)ih.addEventListener('click',()=>alert('아이폰 Safari 하단 공유 버튼(□↑) → 홈 화면에 추가를 누르면 앱처럼 열 수 있습니다.'));if(id&&ib)id.addEventListener('click',()=>{localStorage.setItem('dm_install_dismissed','1');ib.classList.remove('is-visible');ib.classList.add('is-dismissed');ib.style.display='none'});}
-async function init(){bindEvents();renderRecentSearches();document.body.classList.toggle('view-card',state.viewMode==='card');document.body.classList.toggle('view-list',state.viewMode!=='card');updateViewButtons();document.body.classList.toggle("favorite-mode",state.showFavorites);document.body.classList.toggle("date-list-mode",state.showDateList);updateBottomTabs();setDetailCollapsed(window.matchMedia('(max-width:980px)').matches);try{const res=await fetch('./w_7f2c91a6d3.json',{cache:'no-store'});if(!res.ok)throw new Error('w_7f2c91a6d3.json을 불러오지 못했습니다.');const data=await res.json();if(!Array.isArray(data))throw new Error('w_7f2c91a6d3.json 형식이 배열이 아닙니다.');state.items=data.map(normalizeItem);populateDiscountOptions();populateKeywordCatalog();populateDateYearFilter();refreshFavoriteListUI();restoreSearchState();state.filtered=[...state.items];applyFilters()}catch(err){els.error.textContent='w_7f2c91a6d3.json을 불러오지 못했습니다. index.html과 같은 위치에 w_7f2c91a6d3.json을 올려주세요.';els.error.classList.remove('hidden');console.error(err)}}
+async function init(){bindEvents();renderRecentSearches();document.body.classList.toggle('view-card',state.viewMode==='card');document.body.classList.toggle('view-list',state.viewMode!=='card');updateViewButtons();document.body.classList.toggle("favorite-mode",state.showFavorites);document.body.classList.toggle("date-list-mode",state.showDateList);updateBottomTabs();setDetailCollapsed(window.matchMedia('(max-width:980px)').matches);try{const res=await fetch('./w_4d9c72b8e1.json',{cache:'no-store'});if(!res.ok)throw new Error('w_4d9c72b8e1.json을 불러오지 못했습니다.');const data=await res.json();if(!Array.isArray(data))throw new Error('w_4d9c72b8e1.json 형식이 배열이 아닙니다.');state.items=data.map(normalizeItem);populateDiscountOptions();populateKeywordCatalog();populateDateYearFilter();refreshFavoriteListUI();restoreSearchState();state.filtered=[...state.items];applyFilters()}catch(err){els.error.textContent='w_4d9c72b8e1.json을 불러오지 못했습니다. index.html과 같은 위치에 w_4d9c72b8e1.json을 올려주세요.';els.error.classList.remove('hidden');console.error(err)}}
 init();
 
 ;
