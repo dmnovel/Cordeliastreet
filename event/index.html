@@ -753,54 +753,6 @@ body.date-list-mode .date-list-clear-btn{display:inline-flex;align-items:center;
 }
 
 
-/* separated card action sections: past vs favorite/cart */
-.card-actions.three-actions{
-  display:grid !important;
-  grid-template-columns:1fr !important;
-  gap:8px !important;
-}
-.history-action-section,
-.user-action-section{
-  display:grid;
-  width:100%;
-  min-width:0;
-}
-.history-action-section{
-  grid-template-columns:1fr;
-}
-.user-action-section{
-  grid-template-columns:1fr;
-  gap:7px;
-  padding-top:8px;
-  border-top:1px dashed #E5E7EB;
-}
-.history-action-section .history-btn,
-.user-action-section .favorite-action-btn,
-.user-action-section .cart-btn{
-  width:100% !important;
-}
-@media(max-width:980px){
-  .card-actions.three-actions{
-    grid-template-columns:1fr !important;
-    width:100% !important;
-    min-width:0 !important;
-    gap:9px !important;
-  }
-  .history-action-section{
-    grid-template-columns:1fr !important;
-  }
-  .user-action-section{
-    grid-template-columns:1fr 1fr !important;
-    gap:8px !important;
-    padding-top:9px !important;
-  }
-}
-@media(max-width:420px){
-  .user-action-section{
-    grid-template-columns:1fr 1fr !important;
-  }
-}
-
 /* PC cart access restored; mobile top cart button remains hidden */
 .pc-cart-top-btn{display:inline-flex;}
 @media(max-width:980px){
@@ -930,93 +882,60 @@ body.date-list-mode .date-list-clear-btn{display:inline-flex;align-items:center;
 }
 
 
-/* final patch: remove top cart trigger, remove copy action, and use index138-like mobile favorite placement */
+/* final cart controls + mobile favorite placement */
 .pc-cart-top-btn{display:none !important;}
 .cart-copy-btn{display:none !important;}
 .cart-tools{grid-template-columns:1fr !important;}
-.card-actions.two-actions{display:grid !important;grid-template-columns:1fr !important;gap:8px !important;width:96px;min-width:96px;justify-self:start;}
-.card-actions.two-actions .history-btn,
-.card-actions.two-actions .cart-btn{width:96px !important;}
 @media(max-width:980px){
   .card .favorite-toggle{
-    display:flex !important;
-    position:absolute;
-    top:10px;
-    right:10px;
-    z-index:2;
-    align-items:center;
-    justify-content:center;
-    width:34px;
-    min-height:34px;
-    height:34px;
-    border-radius:4px !important;
-    background:#fff;
-    color:#7E5FC6;
-    border:1px solid #E5E7EB;
-    box-shadow:none !important;
-    font-size:18px;
-    padding:0;
+    display:flex !important; position:absolute; top:10px; right:10px; z-index:2;
+    align-items:center; justify-content:center; width:34px; min-height:34px; height:34px;
+    border-radius:4px !important; background:#fff; color:#7E5FC6; border:1px solid #E5E7EB;
+    box-shadow:none !important; font-size:18px; padding:0;
   }
-  .card .favorite-toggle.is-on{
-    background:#F2F0FA;
-    color:#7B68B6;
-    border-color:#E5E7EB;
-  }
+  .card .favorite-toggle.is-on{background:#F2F0FA;color:#7B68B6;border-color:#E5E7EB;}
   .card{padding-right:48px !important;}
-  .card-actions.two-actions{
-    grid-template-columns:1fr 1fr !important;
-    width:100% !important;
-    min-width:0 !important;
-    gap:8px !important;
-  }
-  .card-actions.two-actions .history-btn,
-  .card-actions.two-actions .cart-btn{
-    width:100% !important;
-  }
 }
 
-/* final patch 2: PC favorite heart + PC card-view action buttons in one row */
+/* PC favorite heart */
 @media(min-width:981px){
   .card .favorite-toggle{
-    display:flex !important;
-    position:absolute !important;
-    top:10px !important;
-    right:124px !important;
-    z-index:2 !important;
-    align-items:center !important;
-    justify-content:center !important;
-    width:34px !important;
-    min-height:34px !important;
-    height:34px !important;
-    border-radius:4px !important;
-    background:#fff !important;
-    color:#7E5FC6 !important;
-    border:1px solid #E5E7EB !important;
-    box-shadow:none !important;
-    font-size:18px !important;
-    padding:0 !important;
+    display:flex !important; position:absolute !important; top:10px !important; right:124px !important; z-index:2 !important;
+    align-items:center !important; justify-content:center !important; width:34px !important; min-height:34px !important; height:34px !important;
+    border-radius:4px !important; background:#fff !important; color:#7E5FC6 !important; border:1px solid #E5E7EB !important;
+    box-shadow:none !important; font-size:18px !important; padding:0 !important;
   }
-  .card .favorite-toggle.is-on{
-    background:#F2F0FA !important;
-    color:#7B68B6 !important;
-    border-color:#E5E7EB !important;
-  }
-  body.view-card .card.with-cover .favorite-toggle{
-    right:10px !important;
-  }
-  body.view-card .card.with-cover .card-actions.two-actions{
-    grid-column:1 / -1 !important;
-    grid-template-columns:1fr 1fr !important;
-    width:100% !important;
-    min-width:0 !important;
-    gap:8px !important;
-  }
-  body.view-card .card.with-cover .card-actions.two-actions .history-btn,
-  body.view-card .card.with-cover .card-actions.two-actions .cart-btn{
-    width:100% !important;
-  }
+  .card .favorite-toggle.is-on{background:#F2F0FA !important;color:#7B68B6 !important;border-color:#E5E7EB !important;}
+  body.view-card .card.with-cover .favorite-toggle{right:10px !important;}
 }
 
+/* event card actions: single source of truth */
+.card-actions.two-actions{
+  display:grid !important; grid-template-columns:1fr !important; gap:8px !important;
+  width:96px; min-width:96px; justify-self:start;
+}
+.card-actions.two-actions > .history-btn,
+.card-actions.two-actions > .cart-btn,
+.card-actions.two-actions > .dm-event-purchase-btn{
+  width:100% !important; box-sizing:border-box; display:flex !important;
+  align-items:center !important; justify-content:center !important; text-align:center !important;
+}
+@media(min-width:981px){
+  body.view-card .card.with-cover .card-actions.two-actions{
+    grid-column:1 / -1 !important; grid-row:3; grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    width:min(100%,320px) !important; min-width:0 !important; max-width:320px !important;
+    justify-self:center !important; margin:2px auto 0 !important;
+  }
+}
+@media(max-width:980px){
+  .card-actions.two-actions,
+  body.view-card .card.with-cover .card-actions.two-actions{
+    grid-column:1 / -1 !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    width:min(100%,320px) !important; min-width:0 !important; max-width:320px !important;
+    justify-self:center !important; margin-left:auto !important; margin-right:auto !important;
+    padding-right:0 !important; transform:translateX(16px) !important;
+  }
+}
 
 /* final request patch: mobile only top arrow/heart removal, favorite filters, and card text-size balance */
 .favorite-filter-bar{display:none;}
@@ -1210,37 +1129,6 @@ body.favorite-mode.view-card .card.with-cover .card-info{
 }
 
 
-/* mobile card buttons center fix only: center past/cart buttons within the card */
-@media(max-width:980px){
-  .card-actions.two-actions{
-    grid-column:1 / -1 !important;
-    justify-self:center !important;
-    align-self:center !important;
-    width:min(100%, 320px) !important;
-    max-width:320px !important;
-    margin-left:auto !important;
-    margin-right:auto !important;
-    padding-right:0 !important;
-  }
-  .card-actions.two-actions .history-btn,
-  .card-actions.two-actions .cart-btn{
-    display:flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-    text-align:center !important;
-  }
-  body.view-card .card.with-cover .card-actions.two-actions{
-    grid-column:1 / -1 !important;
-    justify-self:center !important;
-    width:min(100%, 320px) !important;
-    max-width:320px !important;
-    margin-left:auto !important;
-    margin-right:auto !important;
-  }
-}
-
-
-
 /* price badge color tweak: muted warm yellow, tone-preserving */
 .event-badge.price{
   background:#F7E7B8 !important;
@@ -1250,25 +1138,7 @@ body.favorite-mode.view-card .card.with-cover .card-info{
 
 
 
-/* B patch: center past/cart buttons + cart share buttons */
-.card-actions.two-actions{
-  justify-content:center !important;
-}
-.card-actions.two-actions .history-btn,
-.card-actions.two-actions .cart-btn{
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  text-align:center !important;
-}
-@media(min-width:981px){
-  body.view-card .card.with-cover .card-actions.two-actions{
-    justify-self:center !important;
-    max-width:320px !important;
-    margin-left:auto !important;
-    margin-right:auto !important;
-  }
-}
+/* cart share buttons */
 .cart-share-actions{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -1303,17 +1173,9 @@ body.favorite-mode.view-card .card.with-cover .card-info{
 
 
 
-/* correction: keep heart in original top-right position; visually center only past/cart row with heart padding considered */
+/* keep favorite heart in the original mobile top-right position */
 @media(max-width:980px){
-  .card .favorite-toggle{
-    position:absolute !important;
-    top:10px !important;
-    right:10px !important;
-  }
-  .card-actions.two-actions,
-  body.view-card .card.with-cover .card-actions.two-actions{
-    transform:translateX(16px) !important;
-  }
+  .card .favorite-toggle{position:absolute !important;top:10px !important;right:10px !important;}
 }
 
 /* requested fix: keep favorite heart position, move discount/price badges slightly left on PC list view only */
