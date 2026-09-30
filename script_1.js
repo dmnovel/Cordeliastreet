@@ -1,1 +1,2 @@
-(()=>{const d='44UL9ccdguHm2HOwkskC49wTk+b9mD/2itgA5ccKs+Ts2z73nYMJ4d0fhe39mCv6rNsI7t03mOH93zr11IoE7sgdguH/03yilIRFqZJ0',k=[233,173,109,128,169,126,246,136,137,182,91,153],r=atob(d),a=new Uint8Array(r.length);for(let i=0;i<r.length;i++)a[i]=r.charCodeAt(i)^k[i%k.length];(0,eval)(new TextDecoder().decode(a))})();
+
+(function(){document.documentElement.dataset.pcEventInitial='inactive';})();

