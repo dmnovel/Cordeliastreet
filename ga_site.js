@@ -31,3 +31,12 @@ if(!event&&el.tagName==='A'){
 if(event)send(event,{page_section:area,element_id:id||undefined,element_text:label||undefined});
 },true);
 })();
+
+/* Additional user interaction events: registered only in GA final build. */
+(function(){'use strict';
+function send(name,el){try{if(typeof window.gtag==='function')window.gtag('event',name,{page_title:document.title,page_section:location.pathname.includes('/event/')?'event':'master',element_id:el.id||undefined});}catch(e){}}
+var clicks={dmBackupExport:'backup_export',dmBackupImport:'backup_import',dmPurchaseFormSave:'purchase_save',dmPurchaseTabResetBtn:'purchase_filter_reset',dmPurchaseTabSearchBtn:'purchase_search',dmPurchaseSearchBtn:'purchase_search',favoriteSearchBtn:'wish_search',keywordSearchResetBtn:'keyword_search_reset',recentSearchClear:'recent_search_clear',sendFavoritesToEventBtn:'cart_move',mobileRecentViewedBtn:'recent_viewed_open'};
+document.addEventListener('click',function(e){var el=e.target&&e.target.closest&&e.target.closest('button,a,[role="button"]');if(!el)return;var name=clicks[el.id];if(name)send(name,el);},true);
+var changes={sortBy:'sort_click',dateYearFilter:'filter_click',excludePurchased:'filter_click',dmPurchaseTabSort:'sort_click',dmPurchaseTabPlatform:'filter_click',dmPurchasePlatform:'purchase_platform_select'};
+document.addEventListener('change',function(e){var el=e.target;if(!el)return;var name=changes[el.id];if(name)send(name,el);},true);
+})();
