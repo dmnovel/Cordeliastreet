@@ -1140,7 +1140,67 @@ button, a, .game-card, .intro-option, .initial, .initial-word, .tile,
 <!-- GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ25VZNV5H"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-HQ25VZNV5H');</script>
-<script defer src="../ga_site.js"></script>
+<script id="ga-interactions-inline">
+(function(){
+'use strict';
+var pathname=location.pathname;
+var area=/\/game(?:\/|$)/.test(pathname)?'game':/\/event(?:\/|$)/.test(pathname)?'event':'master';
+function send(name,extras){
+  try {if(typeof window.gtag==='function')window.gtag('event',name,Object.assign({page_title:document.title},extras||{}));}catch(e){}
+}
+var clicks={
+  dmBackupExport:'backup_export',dmBackupImport:'backup_import',
+  dmPurchaseFormSave:'purchase_save',dmPurchaseTabResetBtn:'purchase_filter_reset',
+  dmPurchaseTabSearchBtn:'purchase_search',dmPurchaseSearchBtn:'purchase_search',
+  favoriteSearchBtn:'wish_search',keywordSearchResetBtn:'keyword_search_reset',
+  recentSearchClear:'recent_search_clear',sendFavoritesToEventBtn:'cart_move'
+};
+var changes={
+  sortBy:'sort_click',dateYearFilter:'filter_click',excludePurchased:'filter_click',
+  dmPurchaseTabSort:'sort_click',dmPurchaseTabPlatform:'filter_click',
+  dmPurchasePlatform:'purchase_platform_select'
+};
+document.addEventListener('click',function(ev){
+  var target=ev.target;
+  var el=target&&target.closest?target.closest('button,a,[role="button"]'):null;
+  if(!el)return;
+  var id=el.id||'';
+  var label=(el.getAttribute('aria-label')||el.textContent||'').trim().slice(0,100);
+  var name=null;
+  if(id==='searchBtn')name='search_used';
+  else if(id==='mobileMenuBtn')name='hamburger_menu_open';
+  else if(id==='pcThemeBtn'||id==='mobileThemeBtn')name='dark_mode_click';
+  else if(id==='eventAlertBtn')name='alert_open';
+  else if(id==='pointbackTopBtn')name='pointback_click';
+  else if(id==='dateIndexBtn')name='date_open';
+  else if(id==='pcRecentViewedBtn'||el.hasAttribute('data-open-recent-viewed'))name='recent_viewed_open';
+  // On the event page the original favorites controller already tracks wish_open.
+  else if(id==='tasteTopBtn'&&area!=='event')name='wish_open';
+  else if(el.matches('[data-game]'))name='game_select';
+  else if(el.matches('.ridi-top-btn'))return; // Original event-page ridi handler.
+  if(!name&&area==='game'){
+    if(/mix|random|랜덤/i.test(id+' '+label))name='game_random_click';
+    else if(/easy|normal|hard|이지|노멀|하드/i.test(id+' '+label))name='game_difficulty_click';
+  }
+  if(!name&&el.tagName==='A'){
+    var href=el.getAttribute('href')||'';
+    if(/\/event\//.test(href))name='event_open';
+    else if(/\/game\//.test(href))name='game_open';
+    else if(/ridi\.com/.test(href))name='ridi_click';
+  }
+  if(name){send(name,{page_section:area,element_id:id||undefined,element_text:label||undefined});return;}
+  // Id-specific events were previously handled by a second click listener.
+  // A single listener now prevents double-firing on overlapping elements.
+  name=clicks[id];
+  if(name)send(name,{page_section:area==='event'?'event':'master',element_id:id||undefined});
+},true);
+document.addEventListener('change',function(ev){
+  var el=ev.target;if(!el)return;
+  var name=changes[el.id];
+  if(name)send(name,{page_section:area==='event'?'event':'master',element_id:el.id||undefined});
+},true);
+})();
+</script>
 </head>
 <body><main class="shell" id="app"><header class="top"><div class="top-side"></div><h1>🎮 미니게임</h1><div class="top-side right"><a class="small-btn exit-btn" href="../index.html">나가기</a></div></header><p class="intro">원하는 게임을 선택해 주세요.</p><button class="feature" data-game="mix"><strong>🎲 랜덤게임</strong><span>개수 제한 없이 풀고 정답마다 1점</span></button><section class="cards"><button class="game-card" data-game="cover"><span class="emoji">🧩</span><strong>표지 조각</strong></button><button class="game-card" data-game="initials"><span class="emoji">🔤</span><strong>초성 퀴즈</strong></button><button class="game-card" data-game="couples"><span class="emoji">💘</span><strong>주인공 짝 잇기</strong></button><button class="game-card" data-game="excerpt"><span class="emoji">📖</span><strong>발췌 퀴즈</strong></button><button class="game-card" data-game="dialogue"><span class="emoji">💬</span><strong>대사 주인 찾기</strong></button><button class="game-card" data-game="puzzle"><span class="emoji">🧠</span><strong>슬라이딩 퍼즐</strong></button></section><p class="settings-note">미리보기에서 버튼이 작동하지 않으면 브라우저에서 열어 주세요.</p></main>
 <script>
